@@ -172,36 +172,44 @@ export default function HomePage() {
 
       {/* Apertura */}
       <section className="page-container pb-section-tight pt-10 sm:pt-20">
-        {/* Foto a sinistra, prima del titolo: chi legge sa subito con chi parlerà. */}
-        <div className="flex items-center gap-4">
-          <Image
-            src={ownerPhoto}
-            alt={`${OWNER_NAME}, ${STORE_NAME}`}
-            sizes="80px"
-            preload
-            className="ml-1.5 h-16 w-16 shrink-0 rounded-full object-cover object-[50%_20%] ring-2 ring-accent ring-offset-4 ring-offset-bg sm:h-20 sm:w-20"
-          />
+        {/* Testo a sinistra, foto a destra. Da telefono la foto va sotto i pulsanti:
+            il pulsante WhatsApp resta visibile senza scorrere. */}
+        <div className="grid items-center gap-12 lg:grid-cols-[3fr_2fr] lg:gap-16">
           <div>
-            <p className="font-heading text-lg text-fg">{OWNER_NAME}</p>
-            <p className="eyebrow mt-1 text-accent">
-              {STORE_NAME} · {CITY}
+            <p className="eyebrow text-accent">
+              {STORE_NAME} · {OWNER_NAME} · {CITY}
             </p>
+            <h1 className="heading-display mt-5 text-fg">Porta il tuo negozio online</h1>
+            <p className="mt-6 max-w-xl text-lg leading-relaxed text-fg-muted">
+              Siti vetrina e negozi Shopify per i negozi di {CITY}, pronti in pochi giorni. Prezzi
+              chiari, niente sorprese, e parli sempre con me.
+            </p>
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <WhatsAppButton className="btn-primary w-full sm:w-auto" />
+              <a href="#prezzi" className="btn-secondary w-full sm:w-auto">
+                Guarda i prezzi
+              </a>
+            </div>
+            <p className="mt-4 text-sm text-fg-muted">Preventivo gratuito e senza impegno.</p>
           </div>
+
+          {/* Ritratto nel formato originale, con una cornice oro sfalsata come i filetti del listino. */}
+          <figure className="mx-auto w-full max-w-sm lg:max-w-none">
+            <div className="relative mr-4">
+              <div aria-hidden="true" className="absolute inset-0 translate-x-4 translate-y-4 rounded-media border border-accent" />
+              <Image
+                src={ownerPhoto}
+                alt={`${OWNER_NAME}, ${STORE_NAME}`}
+                sizes="(min-width: 1024px) 30vw, (min-width: 640px) 384px, 90vw"
+                preload
+                className="relative h-auto w-full rounded-media"
+              />
+            </div>
+            <figcaption className="mt-8 text-sm text-fg-muted">
+              <span className="font-heading text-base text-fg">{OWNER_NAME}</span> · fondatore di {STORE_NAME}
+            </figcaption>
+          </figure>
         </div>
-        <h1 className="heading-display mt-8 max-w-4xl text-fg">
-          Porta il tuo negozio online
-        </h1>
-        <p className="mt-6 max-w-xl text-lg leading-relaxed text-fg-muted">
-          Siti vetrina e negozi Shopify per i negozi di {CITY}, pronti in pochi giorni. Prezzi
-          chiari, niente sorprese, e parli sempre con me.
-        </p>
-        <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-          <WhatsAppButton className="btn-primary w-full sm:w-auto" />
-          <a href="#prezzi" className="btn-secondary w-full sm:w-auto">
-            Guarda i prezzi
-          </a>
-        </div>
-        <p className="mt-4 text-sm text-fg-muted">Preventivo gratuito e senza impegno.</p>
 
         <div className="mt-12 grid gap-6 border-t border-fg pt-8 sm:grid-cols-2">
           {[
