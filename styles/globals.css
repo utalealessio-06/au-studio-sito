@@ -1,0 +1,248 @@
+@import "tailwindcss";
+
+/*
+ * Qui non ci sono valori di stile: colori, font, arrotondamenti, spaziature,
+ * bottoni e card arrivano dal tema attivo (theme.js), che lib/theme-css.js
+ * trasforma in variabili CSS (--c-*, --f-*, --r-*, --sp-*, --sh-*, --btn-*,
+ * --card-*). Questo file le collega alle classi Tailwind.
+ */
+
+/* Modalità scura: <html data-mode="dark">, impostato da lib/color-mode.js. */
+@custom-variant dark (&:where([data-mode="dark"], [data-mode="dark"] *));
+
+/* Via la palette di Tailwind (red-600, emerald-50...): esistono solo i colori del tema. */
+@theme {
+  --color-*: initial;
+}
+
+@theme inline {
+  --color-bg: var(--c-bg);
+  --color-surface: var(--c-surface);
+  --color-surface-alt: var(--c-surface-alt);
+  --color-fg: var(--c-fg);
+  --color-fg-muted: var(--c-fg-muted);
+  --color-fg-subtle: var(--c-fg-subtle);
+  --color-line: var(--c-line);
+  --color-line-strong: var(--c-line-strong);
+  --color-primary: var(--c-primary);
+  --color-primary-fg: var(--c-primary-fg);
+  --color-primary-hover: var(--c-primary-hover);
+  --color-accent: var(--c-accent);
+  --color-accent-fg: var(--c-accent-fg);
+  --color-accent-soft: var(--c-accent-soft);
+  --color-inverse: var(--c-inverse);
+  --color-inverse-fg: var(--c-inverse-fg);
+  --color-inverse-muted: var(--c-inverse-muted);
+  --color-sale: var(--c-sale);
+  --color-success: var(--c-success);
+  --color-success-soft: var(--c-success-soft);
+  --color-danger: var(--c-danger);
+  --color-glass: var(--c-glass);
+  --color-focus: var(--c-focus);
+  --color-placeholder-glow: var(--c-placeholder-glow);
+
+  --font-sans: var(--f-body);
+  --font-body: var(--f-body);
+  --font-heading: var(--f-heading);
+
+  --radius-btn: var(--r-btn);
+  --radius-input: var(--r-input);
+  --radius-chip: var(--r-chip);
+  --radius-badge: var(--r-badge);
+  --radius-card: var(--r-card);
+  --radius-media: var(--r-media);
+  --radius-panel: var(--r-panel);
+
+  --shadow-card: var(--sh-card);
+  --shadow-card-hover: var(--sh-card-hover);
+  --shadow-pop: var(--sh-pop);
+
+  /* py-section, py-section-tight, gap-grid, px-gutter... */
+  --spacing-section: var(--sp-section);
+  --spacing-section-tight: var(--sp-section-tight);
+  --spacing-grid: var(--sp-grid);
+  --spacing-gutter: var(--sp-gutter);
+}
+
+@layer base {
+  body {
+    @apply bg-bg font-body text-fg;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  ::selection {
+    @apply bg-fg text-bg;
+  }
+
+  :focus-visible {
+    outline-color: var(--c-focus);
+  }
+}
+
+/* Contenitore di pagina: larghezza massima e margini laterali del tema. */
+@utility page-container {
+  width: 100%;
+  max-width: var(--sp-container);
+  margin-inline: auto;
+  padding-inline: var(--sp-gutter);
+}
+
+/* ---------- Tipografia ---------- */
+
+@utility heading {
+  font-family: var(--f-heading);
+  font-weight: var(--heading-weight);
+  letter-spacing: var(--heading-tracking);
+  text-transform: var(--heading-case);
+  line-height: var(--heading-leading);
+  text-wrap: balance;
+}
+
+/* Scala dei titoli: dimensioni fluide, moltiplicate da headingScale del tema. */
+@utility heading-display {
+  @apply heading;
+  font-size: calc(var(--heading-scale) * clamp(2.5rem, 1.5rem + 4vw, 4.75rem));
+}
+
+@utility heading-1 {
+  @apply heading;
+  font-size: calc(var(--heading-scale) * clamp(2.25rem, 1.6rem + 2.4vw, 3.5rem));
+}
+
+@utility heading-2 {
+  @apply heading;
+  font-size: calc(var(--heading-scale) * clamp(1.75rem, 1.35rem + 1.5vw, 2.6rem));
+}
+
+@utility heading-3 {
+  @apply heading;
+  font-size: calc(var(--heading-scale) * clamp(1.2rem, 1.05rem + 0.5vw, 1.45rem));
+}
+
+/* Occhiello: il testo piccolo sopra i titoli (categorie, etichette). */
+@utility eyebrow {
+  font-family: var(--f-body);
+  font-size: var(--eyebrow-size);
+  font-weight: var(--eyebrow-weight);
+  letter-spacing: var(--eyebrow-tracking);
+  text-transform: var(--eyebrow-case);
+  line-height: 1.5;
+}
+
+/* ---------- Bottoni ---------- */
+
+@utility btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6em;
+  padding: calc(var(--btn-py) * var(--btn-scale, 1)) calc(var(--btn-px) * var(--btn-scale, 1));
+  font-size: var(--btn-size);
+  font-weight: var(--btn-weight);
+  letter-spacing: var(--btn-tracking);
+  text-transform: var(--btn-case);
+  line-height: 1.2;
+  border-radius: var(--r-btn);
+  border: var(--btn-border) solid transparent;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+
+  &:focus-visible {
+    outline: 2px solid var(--c-focus);
+    outline-offset: 3px;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.4;
+  }
+}
+
+/* Versione compatta (card prodotto, righe del carrello). */
+@utility btn-sm {
+  --btn-scale: 0.62;
+}
+
+@utility btn-primary {
+  @apply btn;
+  background-color: var(--c-primary);
+  border-color: var(--c-primary);
+  color: var(--c-primary-fg);
+
+  &:hover:not(:disabled) {
+    background-color: var(--c-primary-hover);
+    border-color: var(--c-primary-hover);
+  }
+}
+
+@utility btn-secondary {
+  @apply btn;
+  background-color: transparent;
+  border-color: var(--c-line-strong);
+  color: var(--c-fg);
+
+  &:hover:not(:disabled) {
+    background-color: var(--btn2-hover-bg);
+    border-color: var(--btn2-hover-bg);
+    color: var(--btn2-hover-fg);
+  }
+}
+
+/* Bottone chiaro per le fasce scure (bg-inverse). */
+@utility btn-inverse {
+  @apply btn;
+  background-color: var(--c-inverse-fg);
+  border-color: var(--c-inverse-fg);
+  color: var(--c-inverse);
+
+  &:hover:not(:disabled) {
+    opacity: 0.88;
+  }
+}
+
+/* ---------- Card prodotto ---------- */
+
+@utility product-card {
+  border-radius: var(--r-card);
+  border: var(--card-border) solid var(--c-line);
+  box-shadow: var(--sh-card);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+
+  &:hover {
+    transform: translateY(calc(-1 * var(--card-lift)));
+    box-shadow: var(--sh-card-hover);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    &:hover {
+      transform: none;
+    }
+  }
+}
+
+@utility product-card-media {
+  aspect-ratio: var(--card-ratio);
+}
+
+@utility product-card-body {
+  padding: var(--card-pad);
+}
+
+/* Foto che si ingrandisce quando si passa sulla card (classe `group`). */
+@utility card-zoom {
+  transition: transform 0.6s ease;
+
+  :where(.group):hover & {
+    transform: scale(var(--card-zoom));
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    :where(.group):hover & {
+      transform: none;
+    }
+  }
+}
+
+/* Illustrazioni segnaposto nei colori del tema (prodotti senza foto). */
+@utility bg-placeholder {
+  background: linear-gradient(135deg, var(--c-placeholder-from) 0%, var(--c-placeholder-to) 100%);
+}

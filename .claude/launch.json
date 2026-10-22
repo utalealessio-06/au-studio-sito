@@ -1,0 +1,23 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "next-dev",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev"],
+      "port": 3000
+    },
+    {
+      "name": "eventi-roma-dev",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["--prefix", "/Users/alessioemanueleutale/Library/Mobile Documents/com~apple~CloudDocs/E-COMMERCE-AGENZIA/5_CLIENTI/ecommerce-eventi-roma", "run", "dev", "--", "-p", "3001"],
+      "port": 3001
+    },
+    {
+      "name": "eventi-roma-export",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["/Users/alessioemanueleutale/Library/Mobile Documents/com~apple~CloudDocs/E-COMMERCE-AGENZIA/5_CLIENTI/ecommerce-eventi-roma/scripts/serve-out.mjs", "3002"],
+      "port": 3002
+    }
+  ]
+}
