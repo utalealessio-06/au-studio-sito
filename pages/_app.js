@@ -2,6 +2,7 @@ import dynamic from "next/dynamic";
 import Head from "next/head";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
+import WhatsAppFloat from "../components/WhatsAppFloat";
 import theme from "../theme";
 import { themeCss } from "../lib/theme-css";
 import "../styles/globals.css";
@@ -24,13 +25,14 @@ export default function App({ Component, pageProps }) {
         <meta name="theme-color" media="(prefers-color-scheme: light)" content={theme.colors.light.bg} />
         <meta name="theme-color" media="(prefers-color-scheme: dark)" content={theme.colors.dark.bg} />
       </Head>
-      <div className="flex min-h-screen flex-col">
+      <div id="top" className="flex min-h-screen flex-col">
         <Header />
         <main className="flex-1">
           <Component {...pageProps} />
         </main>
         <Footer />
       </div>
+      <WhatsAppFloat />
       <ThemePreview />
     </>
   );

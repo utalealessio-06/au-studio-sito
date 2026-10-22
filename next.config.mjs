@@ -4,16 +4,6 @@ import { PHASE_DEVELOPMENT_SERVER } from "next/constants.js";
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  images: {
-    // Foto prodotto servite dallo Storage pubblico di Supabase.
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "*.supabase.co",
-        pathname: "/storage/v1/object/public/**",
-      },
-    ],
-  },
 };
 
 // Solo con `npm run dev`: elenco dei file in themes/ per il selettore di

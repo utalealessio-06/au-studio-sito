@@ -43,7 +43,7 @@ export default function ThemePreview() {
   return (
     <>
       {css && <style dangerouslySetInnerHTML={{ __html: css }} />}
-      <div className="fixed bottom-4 right-4 z-50 w-64 rounded-panel bg-surface p-3 text-fg shadow-pop ring-1 ring-line">
+      <div className="fixed bottom-4 left-4 z-50 w-64 rounded-panel bg-surface p-3 text-fg shadow-pop ring-1 ring-line">
         <label className="block">
           <span className="eyebrow text-fg-muted">Anteprima tema</span>
           <select

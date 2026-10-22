@@ -4,8 +4,10 @@
 
 Il sito è diviso in due parti che non si toccano:
 
-- **La macchina** (componenti, pagine, `lib/`): catalogo, filtri, carrello,
-  ordini WhatsApp, modalità scura. È identica per tutti i clienti.
+- **La macchina** (componenti, pagine, `lib/`): la landing page di AU STUDIO
+  su una sola pagina (`pages/index.jsx`), pulsanti WhatsApp, modalità scura.
+  Non è più un e-commerce: carrello, catalogo e schede prodotto sono stati tolti.
+  Le voci `card` e `layout` dei temi restano nel contratto ma la pagina non le usa.
 - **I vestiti** (`themes/`): tutte le scelte di stile. Un file = un tema.
 
 ## Cambiare tema
@@ -23,6 +25,7 @@ Temi disponibili:
 
 | File | Stile |
 | --- | --- |
+| `themes/au-studio.js` | **Tema del sito.** Blu navy `#0f3a66` e oro `#b8902a` come il listino PDF, Lora + Poppins, filetti sottili, angoli appena arrotondati |
 | `themes/minimal-lusso.js` | Bianco/nero, Cormorant Garamond + Jost, niente angoli né ombre, tanto spazio vuoto |
 | `themes/boutique-romantica.js` | Crema, cipria e legno di rosa, Playfair Display + Nunito Sans, bottoni a pillola, card arrotondate e centrate |
 | `themes/street-urban.js` | Nero su cemento con fasce arancio, Anton (maiuscolo, enorme) + Space Grotesk, zero angoli, bordi pieni e ombre "dure" |
@@ -30,7 +33,7 @@ Temi disponibili:
 
 ## Selettore di anteprima (solo in locale)
 
-Con `npm run dev` in basso a destra compare il riquadro "Anteprima tema": una
+Con `npm run dev` in basso a sinistra compare il riquadro "Anteprima tema": una
 tendina con tutti i file di `themes/` che cambia il tema al volo, senza
 ricaricare la pagina e senza modificare `theme.js`. Ricaricando la pagina si
 torna al tema di `theme.js`.
@@ -109,15 +112,18 @@ lampo bianco). Finché il visitatore non sceglie con il pulsante in header
 dispositivo. Funziona con ogni tema perché ogni tema definisce `colors.dark`.
 Se serve, è disponibile anche la variante Tailwind `dark:`.
 
-## Ordini WhatsApp
+## Contatti e prezzi
 
-`lib/store.js` contiene `WHATSAPP_NUMBER` (da completare per ogni cliente),
-`STORE_NAME` e i messaggi precompilati: ordine dal carrello, domanda dalla
-scheda prodotto, contatto dal footer.
+- `lib/store.js`: numero WhatsApp, messaggio precompilato ("Ciao Alessio,
+  vorrei informazioni per il mio negozio"), email, Instagram.
+- `lib/listino.js`: le 3 strade e i servizi aggiuntivi con i prezzi, presi da
+  `../LISTINO-PREZZI-AU-STUDIO-NUOVO.pdf`. Se cambia il listino si aggiorna
+  solo questo file.
+- `public/lavori/`: foto dei lavori realizzati (Lumière Candles).
 
 ## Creare un nuovo tema
 
 1. Copia `themes/minimal-lusso.js` in `themes/<nome>.js`.
 2. Cambia font, colori (chiari **e** scuri) e le altre voci.
 3. Aggiungi il nome nell'elenco in `theme.js` e nella tabella qui sopra.
-4. Prova chiaro/scuro su home, catalogo, scheda prodotto e carrello.
+4. Prova chiaro/scuro su tutta la pagina, da telefono e da computer.

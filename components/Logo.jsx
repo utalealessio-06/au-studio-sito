@@ -1,27 +1,11 @@
-import Link from "next/link";
+import { OWNER_NAME, STORE_NAME } from "../lib/store";
 
+// Come l'intestazione del listino: "AU STUDIO" in grassetto, il nome accanto.
 export default function Logo({ inverted = false }) {
   return (
-    <Link
-      href="/"
-      className="flex items-center gap-3"
-      aria-label="Regalo Artigianato, torna alla home"
-    >
-      <span
-        className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-badge font-heading text-base ${
-          inverted ? "bg-inverse-fg text-inverse" : "bg-fg text-bg"
-        }`}
-      >
-        RA
-      </span>
-      <span className="leading-tight">
-        <span className={`heading block text-xl ${inverted ? "text-inverse-fg" : "text-fg"}`}>
-          Regalo Artigianato
-        </span>
-        <span className={`eyebrow block text-[10px] ${inverted ? "text-inverse-muted" : "text-accent"}`}>
-          Made in Italy
-        </span>
-      </span>
-    </Link>
+    <a href="#top" className="font-heading text-lg leading-none" aria-label={`${STORE_NAME}, torna all’inizio`}>
+      <span className={`font-bold tracking-wide ${inverted ? "text-inverse-fg" : "text-fg"}`}>{STORE_NAME}</span>{" "}
+      <span className={inverted ? "text-inverse-muted" : "text-fg"}>{OWNER_NAME}</span>
+    </a>
   );
 }

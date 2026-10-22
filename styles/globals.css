@@ -65,6 +65,17 @@
 }
 
 @layer base {
+  /* Pagina unica: i link del menu scorrono alla sezione, sotto l'header fisso. */
+  html {
+    scroll-padding-top: 5rem;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
   body {
     @apply bg-bg font-body text-fg;
     transition: background-color 0.3s ease, color 0.3s ease;
