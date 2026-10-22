@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ColorModeToggle from "./ColorModeToggle";
 import Logo from "./Logo";
 import WhatsAppIcon from "./WhatsAppIcon";
@@ -26,12 +26,65 @@ function MenuIcon({ open }) {
   );
 }
 
+// Sezione che occupa il centro dello schermo, per evidenziarla nel menu.
+function useActiveSection() {
+  const [active, setActive] = useState(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setActive(`#${entry.target.id}`);
+        });
+      },
+      { rootMargin: "-45% 0px -50% 0px" }
+    );
+    NAV_LINKS.forEach((link) => {
+      const section = document.querySelector(link.href);
+      if (section) observer.observe(section);
+    });
+    return () => observer.disconnect();
+  }, []);
+
+  return active;
+}
+
+// Barra oro sotto l'header: si riempie man mano che si scorre la pagina.
+// Aggiorna lo stile direttamente (niente re-render a ogni scroll).
+function ScrollProgress() {
+  const bar = useRef(null);
+
+  useEffect(() => {
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      if (bar.current) bar.current.style.transform = `scaleX(${max > 0 ? window.scrollY / max : 0})`;
+    };
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, []);
+
+  return <div ref={bar} aria-hidden="true" className="absolute inset-x-0 -bottom-px h-0.5 origin-left scale-x-0 bg-accent" />;
+}
+
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const closeMenu = () => setMenuOpen(false);
+  const activeSection = useActiveSection();
 
   return (
     <header className="sticky top-0 z-40 border-b border-line bg-bg/90 backdrop-blur">
+      <ScrollProgress />
       <div className="page-container flex h-16 items-center justify-between gap-6 lg:h-20">
         <div className="flex min-w-0 items-center gap-3">
           <Image
@@ -48,7 +101,10 @@ export default function Header() {
             <a
               key={link.href}
               href={link.href}
-              className="px-3 py-2 text-sm text-fg-muted transition-colors hover:text-fg"
+              aria-current={activeSection === link.href ? "true" : undefined}
+              className={`px-3 py-2 text-sm underline-offset-8 transition-colors hover:text-fg ${
+                activeSection === link.href ? "text-fg underline decoration-accent decoration-2" : "text-fg-muted"
+              }`}
             >
               {link.label}
             </a>

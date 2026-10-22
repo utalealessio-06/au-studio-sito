@@ -121,6 +121,17 @@ Se serve, è disponibile anche la variante Tailwind `dark:`.
   solo questo file.
 - `public/lavori/`: foto dei lavori realizzati (Lumière Candles).
 
+## Interazioni della landing
+
+- `components/PathCards.jsx`: le 3 strade. Scorrendo, la card più vicina al
+  centro dello schermo si ingrandisce; toccandola si apre la tendina con i
+  dettagli (spunte verdi = colori `success` / `successSoft` del tema).
+- `components/Reveal.jsx` + `lib/use-in-view.js`: le sezioni compaiono
+  salendo quando arrivano sullo schermo. Senza JavaScript (e sul server) il
+  contenuto resta visibile; con "riduci movimento" attivo non si anima niente.
+- `components/Header.jsx`: barra oro di lettura e voce del menu evidenziata
+  per la sezione in cui ci si trova.
+
 ## Creare un nuovo tema
 
 1. Copia `themes/minimal-lusso.js` in `themes/<nome>.js`.
