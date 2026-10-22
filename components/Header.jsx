@@ -33,15 +33,12 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-40 border-b border-line bg-bg/90 backdrop-blur">
       <div className="page-container flex h-16 items-center justify-between gap-6 lg:h-20">
-        {/* La foto di Alessio accanto al logo: chi scrive su WhatsApp sa con chi parla. */}
         <div className="flex min-w-0 items-center gap-3">
           <Image
             src={ownerPhoto}
             alt={OWNER_NAME}
-            width={40}
-            height={40}
-            preload
-            className="h-9 w-9 shrink-0 rounded-full object-cover ring-2 ring-accent ring-offset-2 ring-offset-bg lg:h-11 lg:w-11"
+            sizes="44px"
+            className="h-9 w-9 shrink-0 rounded-full object-cover object-[50%_20%] ring-2 ring-accent ring-offset-2 ring-offset-bg lg:h-11 lg:w-11"
           />
           <Logo />
         </div>

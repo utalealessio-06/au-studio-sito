@@ -14,6 +14,7 @@ import {
   WHATSAPP_NUMBER,
   whatsappUrl,
 } from "../lib/store";
+import ownerPhoto from "../public/alessio-utale.jpg";
 import lumierePhoto from "../public/lavori/lumiere-candles.jpg";
 
 const TITLE = `${STORE_NAME} | Siti e negozi online per i negozi di ${CITY}`;
@@ -170,16 +171,29 @@ export default function HomePage() {
       </Head>
 
       {/* Apertura */}
-      <section className="page-container pb-section-tight pt-12 sm:pt-20">
-        <p className="eyebrow text-accent">
-          {STORE_NAME} · {OWNER_NAME} · {CITY}
-        </p>
-        <h1 className="heading-display mt-5 max-w-4xl text-fg">
-          Siti e negozi online per i negozi di {CITY}
+      <section className="page-container pb-section-tight pt-10 sm:pt-20">
+        {/* Foto a sinistra, prima del titolo: chi legge sa subito con chi parlerà. */}
+        <div className="flex items-center gap-4">
+          <Image
+            src={ownerPhoto}
+            alt={`${OWNER_NAME}, ${STORE_NAME}`}
+            sizes="80px"
+            preload
+            className="ml-1.5 h-16 w-16 shrink-0 rounded-full object-cover object-[50%_20%] ring-2 ring-accent ring-offset-4 ring-offset-bg sm:h-20 sm:w-20"
+          />
+          <div>
+            <p className="font-heading text-lg text-fg">{OWNER_NAME}</p>
+            <p className="eyebrow mt-1 text-accent">
+              {STORE_NAME} · {CITY}
+            </p>
+          </div>
+        </div>
+        <h1 className="heading-display mt-8 max-w-4xl text-fg">
+          Porta il tuo negozio online
         </h1>
         <p className="mt-6 max-w-xl text-lg leading-relaxed text-fg-muted">
-          Ti preparo il sito o il negozio online, pronto in pochi giorni. Prezzi chiari, niente
-          sorprese, e parli sempre con me.
+          Siti vetrina e negozi Shopify per i negozi di {CITY}, pronti in pochi giorni. Prezzi
+          chiari, niente sorprese, e parli sempre con me.
         </p>
         <div className="mt-8 flex flex-col gap-3 sm:flex-row">
           <WhatsAppButton className="btn-primary w-full sm:w-auto" />
