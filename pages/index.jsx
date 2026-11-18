@@ -293,11 +293,11 @@ export default function HomePage() {
             </div>
           </Reveal>
 
-          {/* Progetti dimostrativi (lib/portfolio.js) */}
+          {/* Siti fatti per attività vere (lib/portfolio.js) */}
           <Reveal className="mt-section border-t border-fg pt-10">
-            <SectionIntro eyebrow="Esempi" title="Come potrebbe essere il tuo">
-              Tre progetti dimostrativi per negozi inventati, uno per ogni strada. Passa sopra con il
-              mouse per scorrere la pagina.
+            <SectionIntro eyebrow="Altri lavori" title="Come potrebbe essere il tuo">
+              Siti che ho preparato per attività vere del Lazio: ristoranti e B&amp;B, ognuno disegnato
+              su misura. Quelli segnati come “Proposta” sono anteprime mostrate ai titolari.
             </SectionIntro>
           </Reveal>
 

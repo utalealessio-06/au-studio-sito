@@ -120,11 +120,13 @@ Se serve, è disponibile anche la variante Tailwind `dark:`.
   `../LISTINO-PREZZI-AU-STUDIO-NUOVO.pdf`. Se cambia il listino si aggiorna
   solo questo file.
 - `public/lavori/`: foto dei lavori realizzati (Lumière Candles).
-- `lib/portfolio.js` + `public/portfolio/*.svg`: i 3 progetti dimostrativi
-  (negozi inventati) della sezione "Esempi", mostrati da
-  `components/MockupShowcase.jsx`. Le schermate SVG hanno i colori del
-  "cliente", non del tema (valgono come foto). Vanno sempre presentati come
-  esempi, mai come clienti reali; i domini sono finti (`.esempio`).
+- `lib/portfolio.js` + `public/portfolio/*.jpg`: i siti fatti per attività
+  vere (Rumino, Carpe Diem, Le Falesie, L'Amicizia, La Finestra sul Lago)
+  della sezione "Come potrebbe essere il tuo", mostrati da
+  `components/MockupShowcase.jsx`. Le immagini sono screenshot dei siti in
+  `~/Desktop/LAVORI` (1440×900 da computer, 390×844 da telefono).
+  `status: "Proposta"` = anteprima non ancora comprata; quando diventa
+  cliente si mette `"Cliente"` e l'`url` del sito online (compare il link).
 
 ## Interazioni della landing
 
