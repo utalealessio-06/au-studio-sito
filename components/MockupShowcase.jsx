@@ -48,9 +48,8 @@ export default function MockupShowcase() {
           <Devices mockup={mockup} />
           <p className="eyebrow mt-6 text-accent">{mockup.path}</p>
           <h3 className="heading-3 mt-2 text-fg">{mockup.name}</h3>
-          <p className="mt-1 text-sm text-fg-muted">
-            {mockup.kind} · {mockup.price}
-          </p>
+          <p className="mt-1 text-sm text-fg-muted">{mockup.kind}</p>
+          <p className="mt-2 text-sm font-medium text-fg">{mockup.price}</p>
           <ul className="mt-4 border-t border-line text-sm text-fg-muted">
             {mockup.points.map((point) => (
               <li key={point} className="flex gap-3 border-b border-line py-2.5">
