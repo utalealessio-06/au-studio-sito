@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1500" width="1200" height="1500">
+  <!-- Progetto dimostrativo: negozio Shopify "Negozio" in due lingue per una pelletteria (negozio inventato) -->
+  <defs>
+    <linearGradient id="leather" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#c06a36"/>
+      <stop offset="1" stop-color="#8a4420"/>
+    </linearGradient>
+    <linearGradient id="leather2" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#5a3a26"/>
+      <stop offset="1" stop-color="#3a2416"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="1500" fill="#f4ecdf"/>
+
+  <!-- Apertura scura con menu -->
+  <rect width="1200" height="700" fill="#1f1a17"/>
+  <text x="64" y="58" font-family="Georgia, 'Times New Roman', serif" font-size="26" letter-spacing="3" fill="#f4ecdf">CORVO</text>
+  <text x="64" y="78" font-family="Helvetica, Arial, sans-serif" font-size="10" letter-spacing="4" fill="#c9a77c">PELLETTERIA · ROMA</text>
+  <g font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#d9cbb6">
+    <text x="420" y="58">Borse</text>
+    <text x="494" y="58">Portafogli</text>
+    <text x="596" y="58">Cinture</text>
+    <text x="680" y="58">Su misura</text>
+  </g>
+  <g font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="700">
+    <rect x="960" y="36" width="88" height="32" rx="16" fill="none" stroke="#5b4e44"/>
+    <rect x="962" y="38" width="42" height="28" rx="14" fill="#c9a77c"/>
+    <text x="983" y="57" fill="#1f1a17" text-anchor="middle">IT</text>
+    <text x="1026" y="57" fill="#d9cbb6" text-anchor="middle">EN</text>
+  </g>
+  <path d="M1086 42 h24 l-3 24 h-18z M1091 42 q7 -14 14 0" stroke="#f4ecdf" stroke-width="2" fill="none"/>
+  <text x="1124" y="62" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#f4ecdf">(1)</text>
+
+  <text x="64" y="220" font-family="Helvetica, Arial, sans-serif" font-size="14" letter-spacing="4" font-weight="700" fill="#c9a77c">FATTO A MANO A ROMA · HANDMADE IN ROME</text>
+  <g font-family="Georgia, 'Times New Roman', serif" font-size="64" fill="#f4ecdf">
+    <text x="64" y="304">Cuoio italiano,</text>
+    <text x="64" y="378">cucito a mano</text>
+  </g>
+  <g font-family="Helvetica, Arial, sans-serif" font-size="19" fill="#bfb2a2">
+    <text x="64" y="436">Borse e piccola pelletteria dal nostro laboratorio</text>
+    <text x="64" y="464">vicino a Piazza Navona. Spediamo in tutto il mondo.</text>
+  </g>
+  <rect x="64" y="504" width="220" height="56" fill="#c9a77c"/>
+  <text x="174" y="538" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#1f1a17" text-anchor="middle">Acquista ora</text>
+  <rect x="300" y="504" width="220" height="56" fill="none" stroke="#c9a77c" stroke-width="2"/>
+  <text x="410" y="538" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#c9a77c" text-anchor="middle">Il laboratorio</text>
+  <g font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#bfb2a2">
+    <text x="64" y="612">★★★★★  4,9 su Google · 230 recensioni</text>
+  </g>
+
+  <!-- borsa -->
+  <ellipse cx="900" cy="640" rx="220" ry="24" fill="#120f0d"/>
+  <path d="M800 300 q100 -150 200 0" stroke="#8a4420" stroke-width="18" fill="none" stroke-linecap="round"/>
+  <path d="M720 330 h360 l-20 300 h-320z" fill="url(#leather)"/>
+  <path d="M736 346 h328 l-18 268 h-292z" fill="none" stroke="#f0c9a0" stroke-width="2" stroke-dasharray="8 6"/>
+  <rect x="720" y="330" width="360" height="90" fill="#9c4f27"/>
+  <rect x="870" y="400" width="60" height="40" rx="6" fill="#d8b46a"/>
+  <rect x="884" y="412" width="32" height="16" rx="4" fill="#9c4f27"/>
+
+  <!-- Banner sconto -->
+  <rect x="0" y="700" width="1200" height="64" fill="#c9a77c"/>
+  <text x="600" y="740" font-family="Helvetica, Arial, sans-serif" font-size="16" letter-spacing="1" fill="#1f1a17" text-anchor="middle">−10% sul primo ordine con il codice <tspan font-weight="700">BENVENUTO10</tspan> · Ritiro gratuito in laboratorio</text>
+
+  <!-- Prodotti -->
+  <text x="64" y="850" font-family="Georgia, 'Times New Roman', serif" font-size="40" fill="#1f1a17">I più amati</text>
+  <text x="1136" y="850" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#8a4420" text-anchor="end">Tutta la collezione →</text>
+  <g font-family="Helvetica, Arial, sans-serif">
+    <g>
+      <rect x="64" y="880" width="248" height="260" fill="#e9dcc7"/>
+      <path d="M140 960 q48 -60 96 0" stroke="#3a2416" stroke-width="7" fill="none"/>
+      <rect x="112" y="960" width="152" height="120" rx="6" fill="url(#leather2)"/>
+      <text x="64" y="1172" font-size="17" fill="#1f1a17">Borsa Navona</text>
+      <text x="64" y="1198" font-size="16" font-weight="700" fill="#1f1a17">€240,00</text>
+    </g>
+    <g>
+      <rect x="336" y="880" width="248" height="260" fill="#e9dcc7"/>
+      <rect x="390" y="960" width="140" height="96" rx="8" fill="url(#leather)"/>
+      <path d="M390 1000 h140" stroke="#6e3517" stroke-width="2"/>
+      <rect x="398" y="968" width="124" height="80" rx="5" fill="none" stroke="#f0c9a0" stroke-dasharray="5 4"/>
+      <text x="336" y="1172" font-size="17" fill="#1f1a17">Portafoglio Tevere</text>
+      <text x="336" y="1198" font-size="16" font-weight="700" fill="#1f1a17">€85,00</text>
+    </g>
+    <g>
+      <rect x="608" y="880" width="248" height="260" fill="#e9dcc7"/>
+      <path d="M650 1010 q80 -60 164 0" stroke="#3a2416" stroke-width="22" fill="none" stroke-linecap="round"/>
+      <rect x="716" y="964" width="34" height="30" rx="4" fill="none" stroke="#d8b46a" stroke-width="5"/>
+      <text x="608" y="1172" font-size="17" fill="#1f1a17">Cintura classica</text>
+      <text x="608" y="1198" font-size="16" font-weight="700" fill="#1f1a17">€65,00</text>
+    </g>
+    <g>
+      <rect x="880" y="880" width="256" height="260" fill="#e9dcc7"/>
+      <rect x="944" y="940" width="128" height="160" rx="8" fill="#8a4420"/>
+      <rect x="944" y="940" width="128" height="50" rx="8" fill="#6e3517"/>
+      <rect x="996" y="980" width="24" height="16" rx="3" fill="#d8b46a"/>
+      <rect x="892" y="892" width="70" height="26" fill="#1f1a17"/>
+      <text x="927" y="910" font-size="12" font-weight="700" fill="#c9a77c" text-anchor="middle">NOVITÀ</text>
+      <text x="880" y="1172" font-size="17" fill="#1f1a17">Zaino Aventino</text>
+      <text x="880" y="1198" font-size="16" font-weight="700" fill="#1f1a17">€290,00</text>
+    </g>
+  </g>
+
+  <!-- Su misura -->
+  <rect x="64" y="1260" width="1072" height="180" fill="#1f1a17"/>
+  <text x="112" y="1336" font-family="Georgia, 'Times New Roman', serif" font-size="34" fill="#f4ecdf">Una borsa con le tue iniziali</text>
+  <text x="112" y="1376" font-family="Helvetica, Arial, sans-serif" font-size="17" fill="#bfb2a2">Incisione gratuita su tutti i portafogli e le cinture.</text>
+  <rect x="852" y="1322" width="236" height="56" fill="#c9a77c"/>
+  <text x="970" y="1356" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#1f1a17" text-anchor="middle">Personalizza</text>
+</svg>

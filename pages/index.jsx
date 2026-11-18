@@ -1,5 +1,6 @@
 import Head from "next/head";
 import Image from "next/image";
+import MockupShowcase from "../components/MockupShowcase";
 import PathCards from "../components/PathCards";
 import PriceRow from "../components/PriceRow";
 import Reveal from "../components/Reveal";
@@ -23,7 +24,7 @@ import { useInView } from "../lib/use-in-view";
 
 const TITLE = `${STORE_NAME} | Siti e negozi online per i negozi di ${CITY}`;
 const DESCRIPTION =
-  "Sito vetrina da €35 al mese o negozio Shopify da €350, per i negozi di Roma. Prezzi chiari, pronto in pochi giorni. Scrivimi su WhatsApp, il preventivo è gratuito.";
+  "Sito vetrina da €35 al mese (o €350 una volta sola) e negozio Shopify da €350, per i negozi di Roma. Prezzi chiari, pronto in pochi giorni. Scrivimi su WhatsApp, il preventivo è gratuito.";
 
 const LUMIERE = {
   name: "Lumière Candles",
@@ -68,19 +69,19 @@ const FAQS = [
   },
   {
     q: "Ci sono altri costi?",
-    a: "Con il sito vetrina no: hosting e dominio sono inclusi nel canone. Con Shopify, l’abbonamento mensile a Shopify, il dominio e le commissioni sui pagamenti li paghi direttamente a Shopify e ai fornitori.",
+    a: "Con il sito vetrina in abbonamento no: hosting e dominio sono inclusi nel canone. Senza abbonamento paghi solo il dominio, circa €12 l’anno. Con Shopify, l’abbonamento mensile a Shopify, il dominio e le commissioni sui pagamenti li paghi direttamente a Shopify e ai fornitori.",
   },
   {
     q: "Come si paga?",
-    a: "Negozio Shopify: acconto del 30% e saldo alla consegna. Sito vetrina: l’attivazione all’inizio, poi il canone ogni mese, in anticipo.",
+    a: "Negozio Shopify e sito senza abbonamento: acconto del 30% e saldo alla consegna. Sito vetrina in abbonamento: l’attivazione all’inizio, poi il canone ogni mese, in anticipo.",
   },
   {
     q: "Il sito è mio?",
-    a: "Il negozio Shopify e il suo account sono intestati a te fin dall’inizio, e restano tuoi. Il sito vetrina resta attivo finché è attivo l’abbonamento.",
+    a: "Il negozio Shopify e il suo account sono intestati a te fin dall’inizio, e restano tuoi. Il sito vetrina in abbonamento resta attivo finché è attivo l’abbonamento; quello senza abbonamento è tuo, sul tuo dominio.",
   },
   {
     q: "Posso disdire il sito vetrina?",
-    a: "Sì. Il minimo è 12 mesi, poi continui mese per mese e puoi disdire quando vuoi.",
+    a: "Sì. Il minimo è 6 mesi, poi continui mese per mese e puoi disdire quando vuoi.",
   },
   {
     q: "Non sono pratico di computer. È un problema?",
@@ -291,6 +292,18 @@ export default function HomePage() {
               </a>
             </div>
           </Reveal>
+
+          {/* Progetti dimostrativi (lib/portfolio.js) */}
+          <Reveal className="mt-section border-t border-fg pt-10">
+            <SectionIntro eyebrow="Esempi" title="Come potrebbe essere il tuo">
+              Tre progetti dimostrativi per negozi inventati, uno per ogni strada. Passa sopra con il
+              mouse per scorrere la pagina.
+            </SectionIntro>
+          </Reveal>
+
+          <div className="mt-10">
+            <MockupShowcase />
+          </div>
         </div>
       </section>
 

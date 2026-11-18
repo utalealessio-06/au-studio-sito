@@ -42,6 +42,17 @@ function VetrinaDetails() {
         <WhatsAppButton className="btn-inverse mt-6 w-full sm:w-auto">Voglio il sito vetrina</WhatsAppButton>
       </div>
       <CheckList items={VETRINA.features} className="self-center" />
+      <div className="flex flex-col gap-3 rounded-card border border-dashed border-line-strong/40 p-5 sm:flex-row sm:items-center sm:justify-between md:col-span-2">
+        <div className="max-w-2xl">
+          <p className="eyebrow text-accent">Oppure</p>
+          <p className="mt-2 font-medium text-fg">{VETRINA.once.name}</p>
+          <p className="mt-1 text-sm text-fg-muted">{VETRINA.once.text}</p>
+        </div>
+        <p className="shrink-0 text-right">
+          <span className="heading block text-4xl text-fg">{VETRINA.once.price}</span>
+          <span className="block text-xs text-fg-muted">{VETRINA.once.unit}</span>
+        </p>
+      </div>
     </div>
   );
 }
