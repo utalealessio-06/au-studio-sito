@@ -46,6 +46,7 @@ const theme = {
       inverse: "#ff4d1a", // fasce arancio: barra annunci, footer, banner
       inverseFg: "#0a0a0a",
       inverseMuted: "#4a1a08",
+      inverseAccent: "#ffffff",
       sale: "#c4001a",
       success: "#16733a",
       successSoft: "#dcf5e3",
@@ -75,6 +76,7 @@ const theme = {
       inverse: "#ff4d1a",
       inverseFg: "#0a0a0a",
       inverseMuted: "#4a1a08",
+      inverseAccent: "#ffffff",
       sale: "#ff4d6a",
       success: "#4ade80",
       successSoft: "#0f2416",

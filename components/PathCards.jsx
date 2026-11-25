@@ -1,10 +1,10 @@
-import { useEffect, useId, useRef, useState } from "react";
+import { useId, useState } from "react";
 import PriceRow from "./PriceRow";
 import WhatsAppButton from "./WhatsAppButton";
 import { CLIENTI, SHOPIFY, VETRINA } from "../lib/listino";
 
-// Le 3 strade. Scorrendo, la card che passa al centro dello schermo si
-// ingrandisce; toccandola si apre la tendina con tutti i dettagli.
+// Le 3 strade, una per riga come un indice: numero, titolo grande e prezzo.
+// Toccando una riga si apre la tendina con tutti i dettagli.
 
 function Check() {
   return (
@@ -106,86 +106,40 @@ const PATHS = [
   { id: "clienti", ...CLIENTI, from: `da ${CLIENTI.items[1].price}`, Details: ClientiDetails },
 ];
 
-// Indice della card più vicina al centro dello schermo: una sola alla volta.
-// `null` finché non si è misurato (sul server tutte appaiono attive) e quando
-// le card sono lontane dallo schermo.
-function useCenteredIndex(listRef) {
-  const [index, setIndex] = useState(null);
-
-  useEffect(() => {
-    let frame = 0;
-    const update = () => {
-      frame = 0;
-      const center = window.innerHeight / 2;
-      let best = null;
-      let bestDistance = window.innerHeight * 0.6;
-      [...(listRef.current?.children ?? [])].forEach((card, i) => {
-        const rect = card.getBoundingClientRect();
-        const distance = rect.top <= center && rect.bottom >= center ? 0 : Math.min(Math.abs(rect.top - center), Math.abs(rect.bottom - center));
-        if (distance < bestDistance) {
-          best = i;
-          bestDistance = distance;
-        }
-      });
-      setIndex(best);
-    };
-    const onScroll = () => {
-      if (!frame) frame = requestAnimationFrame(update);
-    };
-    update();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
-    return () => {
-      cancelAnimationFrame(frame);
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
-    };
-  }, [listRef]);
-
-  return index;
-}
-
-function PathCard({ path, number, open, active, onToggle }) {
+function PathCard({ path, number, open, onToggle }) {
   const panelId = useId();
   const { Details } = path;
 
   return (
-    <li
-      id={path.id}
-      className={`scroll-mt-24 rounded-card border bg-surface transition-[scale,opacity,box-shadow,border-color] duration-500 ease-out motion-reduce:transition-none ${
-        active ? "scale-100 border-fg opacity-100 shadow-pop" : "scale-[0.96] border-line opacity-60 motion-reduce:scale-100"
-      }`}
-    >
+    <li id={path.id} className="scroll-mt-28 border-b border-line">
       <button
         type="button"
         onClick={onToggle}
         aria-expanded={open}
         aria-controls={panelId}
-        className="flex w-full items-center gap-4 p-5 text-left sm:gap-6 sm:p-7"
+        className="group grid w-full grid-cols-[2.75rem_1fr_auto] items-center gap-x-4 gap-y-2 py-8 text-left sm:grid-cols-[5.5rem_1fr_auto_auto] sm:gap-x-6 sm:py-10"
       >
-        <span
-          className={`heading flex h-12 w-12 shrink-0 items-center justify-center rounded-full border text-2xl transition-colors duration-500 ${
-            active ? "border-accent bg-accent text-accent-fg" : "border-line text-accent"
-          }`}
-        >
-          {number}
-        </span>
-        <span className="min-w-0 flex-1">
+        <span className="text-xs font-semibold tracking-[0.14em] text-accent">{String(number).padStart(2, "0")}</span>
+        <span className="min-w-0">
           <span className="block text-sm text-fg-muted">{path.question}</span>
-          <span className="heading mt-1 block text-2xl text-fg">{path.title}</span>
-          <span className="mt-1 block text-sm font-medium text-fg sm:hidden">{path.from}</span>
+          <span
+            className={`heading mt-2 block text-[clamp(2rem,1.4rem+2.6vw,3.4rem)] text-fg transition-[font-style] group-hover:italic ${open ? "italic" : ""}`}
+          >
+            {path.title}
+          </span>
+          <span className="mt-2 block text-sm font-medium text-fg sm:hidden">{path.from}</span>
         </span>
         <span className="hidden text-right sm:block">
-          <span className="block font-medium text-fg">{path.from}</span>
-          <span className="block text-xs text-fg-muted">{open ? "Chiudi" : "Vedi cosa include"}</span>
+          <span className="heading block text-2xl text-fg">{path.from}</span>
+          <span className="eyebrow mt-1 block text-fg-muted">{open ? "Chiudi" : "Vedi cosa include"}</span>
         </span>
         <span
           aria-hidden="true"
-          className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-line text-fg transition-transform duration-300 ${open ? "rotate-180" : ""}`}
+          className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full border text-xl font-light transition-colors ${
+            open ? "border-fg bg-fg text-bg" : "border-line-strong/30 text-accent group-hover:border-fg"
+          }`}
         >
-          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4">
-            <path d="M5 8l5 5 5-5" />
-          </svg>
+          {open ? "–" : "+"}
         </span>
       </button>
 
@@ -196,7 +150,7 @@ function PathCard({ path, number, open, active, onToggle }) {
         className={`grid transition-[grid-template-rows] duration-500 ease-out motion-reduce:transition-none ${open ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}
       >
         <div className="overflow-hidden">
-          <div className="border-t border-line px-5 pb-6 pt-5 sm:px-7 sm:pb-8">
+          <div className="mb-10 border border-line bg-surface p-5 sm:p-8">
             <p className="mb-6 max-w-2xl text-fg-muted">{path.intro}</p>
             <Details />
           </div>
@@ -208,18 +162,15 @@ function PathCard({ path, number, open, active, onToggle }) {
 
 export default function PathCards() {
   const [openId, setOpenId] = useState(null);
-  const listRef = useRef(null);
-  const centered = useCenteredIndex(listRef);
 
   return (
-    <ol ref={listRef} className="space-y-4">
+    <ol className="border-t border-line">
       {PATHS.map((path, index) => (
         <PathCard
           key={path.id}
           path={path}
           number={index + 1}
           open={openId === path.id}
-          active={openId === path.id || centered === null || centered === index}
           onToggle={() => setOpenId((current) => (current === path.id ? null : path.id))}
         />
       ))}

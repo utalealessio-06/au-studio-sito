@@ -25,7 +25,8 @@ Temi disponibili:
 
 | File | Stile |
 | --- | --- |
-| `themes/au-studio.js` | **Tema del sito.** Blu navy `#0f3a66` e oro `#b8902a` come il listino PDF, Lora + Poppins, filetti sottili, angoli appena arrotondati |
+| `themes/editoriale.js` | **Tema del sito.** Stile rivista: blu notte `#14213d` e oro `#fca311`, Instrument Serif + Inter, titoli grandi con una parola in corsivo oro, angoli vivi, bottoni in maiuscolo con freccia ↗ |
+| `themes/au-studio.js` | Blu navy `#0f3a66` e oro `#b8902a` come il listino PDF, Lora + Poppins, filetti sottili, angoli appena arrotondati |
 | `themes/minimal-lusso.js` | Bianco/nero, Cormorant Garamond + Jost, niente angoli né ombre, tanto spazio vuoto |
 | `themes/boutique-romantica.js` | Crema, cipria e legno di rosa, Playfair Display + Nunito Sans, bottoni a pillola, card arrotondate e centrate |
 | `themes/street-urban.js` | Nero su cemento con fasce arancio, Anton (maiuscolo, enorme) + Space Grotesk, zero angoli, bordi pieni e ombre "dure" |
@@ -68,6 +69,7 @@ Ogni file in `themes/` esporta un oggetto con queste sezioni (vedi
 - `spacing`: larghezza massima, margini laterali, aria tra le sezioni, distanza tra le card.
 - `shadows`: ombre delle card e degli elementi in rilievo.
 - `buttons`: misure, carattere ed effetto al passaggio dei bottoni.
+  `arrow` (facoltativo) è il simbolo dopo il testo di ogni bottone, es. `"↗"`.
 - `card`: aspetto della card prodotto (proporzione della foto, bordo,
   allineamento, cosa mostrare, tipo di bottone "Aggiungi").
 - `layout`: card per riga, stile del menu, segnaposto nei colori del tema o del prodotto.
@@ -85,8 +87,11 @@ tema ne manca una, in sviluppo compare un errore che dice quale.
    `bg-surface`, `text-fg-muted`, `border-line`, `rounded-card`,
    `font-heading`, `py-section`, `gap-grid`, `shadow-card`...
    Lo stesso file definisce le classi composte: `heading-display`,
-   `heading-1`/`-2`/`-3`, `eyebrow`, `btn-primary`/`btn-secondary`/`btn-inverse`
-   (più `btn-sm`), `product-card*`, `page-container`.
+   `heading-1`/`-2`/`-3`, `eyebrow`, `btn-primary`/`btn-secondary`/`btn-inverse`,
+   `btn-ghost` (solo bordo, nel colore del testo intorno), `btn-on-primary`
+   (pieno, sopra la fascia `bg-primary`), più `btn-sm` e `btn-plain` (senza
+   freccia), `link-more`, `hero-backdrop`, `type-in` + `caret` (titolo che si
+   scrive), `product-card*`, `page-container`.
 3. Le scelte di struttura (es. `card.addButton`, `layout.gridColumns`,
    `layout.navStyle`) i componenti le leggono direttamente con
    `const { card, layout } = useTheme()` (vedi "Selettore di anteprima").
@@ -98,6 +103,8 @@ tema ne manca una, in sviluppo compare un errore che dice quale.
   (`--color-*: initial`), quindi `bg-white`, `text-red-600`, ecc. non funzionano.
 - Le misure di layout (`grid-cols-*`, `gap-4`, `text-sm`, `p-6`...) sono
   ammesse. Colori, font, arrotondamenti, ombre e spaziature delle sezioni no.
+- `inverseAccent` è l'accento leggibile sulle fasce scure (occhielli, parole
+  in corsivo, nome gigante nel footer).
 - Un nuovo colore, prima di usarlo, va aggiunto a `COLOR_KEYS` in
   `lib/theme-css.js`, a `@theme inline` in `styles/globals.css` e a **tutti**
   i temi, sia in `light` che in `dark`.
@@ -130,13 +137,23 @@ Se serve, è disponibile anche la variante Tailwind `dark:`.
 
 ## Interazioni della landing
 
-- `components/PathCards.jsx`: le 3 strade. Scorrendo, la card più vicina al
-  centro dello schermo si ingrandisce; toccandola si apre la tendina con i
-  dettagli (spunte verdi = colori `success` / `successSoft` del tema).
+- Struttura della pagina: apertura scura (`bg-inverse`) a tutto schermo con
+  cornice sottile, poi sezioni numerate "01 · …" fino a "07 · Contatti"
+  (`SectionHead` in `pages/index.jsx`). Le parole in corsivo nei titoli sono
+  `<em className="text-accent">` (`text-inverse-accent` sulle fasce scure).
+  Fondi alternati: `bg-surface-alt`, `bg-bg`, `bg-inverse` (Lavori, Contatti,
+  footer) e la fascia `bg-primary` dopo i lavori.
+- `components/Header.jsx`: fisso, trasparente sopra l'apertura e pieno
+  (`bg-inverse`) appena si scorre. Sta sempre su fondo scuro, come il footer.
+- `components/PathCards.jsx`: le 3 strade, una per riga come un indice;
+  toccandola si apre la tendina con i dettagli (spunte verdi = colori
+  `success` / `successSoft` del tema).
+- `components/WhatsAppFloat.jsx`: tondo da telefono; da computer compare con
+  la scritta solo dopo l'apertura.
 - `components/Reveal.jsx` + `lib/use-in-view.js`: le sezioni compaiono
   salendo quando arrivano sullo schermo. Senza JavaScript (e sul server) il
   contenuto resta visibile; con "riduci movimento" attivo non si anima niente.
-- `components/Header.jsx`: barra oro di lettura e voce del menu evidenziata
+- `components/Header.jsx`: barra di lettura e voce del menu evidenziata
   per la sezione in cui ci si trova.
 
 ## Creare un nuovo tema

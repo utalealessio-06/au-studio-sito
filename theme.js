@@ -2,6 +2,7 @@
 //  TEMA DEL SITO
 //  Per cambiare tema modifica SOLO il nome del file nella riga qui sotto.
 //  Temi disponibili nella cartella themes/:
+//    editoriale
 //    au-studio
 //    minimal-lusso
 //    boutique-romantica
@@ -10,4 +11,4 @@
 //  Come funzionano e come crearne uno nuovo: vedi CLAUDE.md.
 // ─────────────────────────────────────────────────────────────────────────
 
-export { default } from "./themes/au-studio";
+export { default } from "./themes/editoriale";
