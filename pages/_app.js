@@ -22,8 +22,7 @@ export default function App({ Component, pageProps }) {
     <>
       <Head>
         <style id="theme" dangerouslySetInnerHTML={{ __html: THEME_CSS }} />
-        <meta name="theme-color" media="(prefers-color-scheme: light)" content={theme.colors.light.bg} />
-        <meta name="theme-color" media="(prefers-color-scheme: dark)" content={theme.colors.dark.bg} />
+        <meta name="theme-color" content={theme.colors.light.bg} />
       </Head>
       <div id="top" className="flex min-h-screen flex-col">
         <Header />

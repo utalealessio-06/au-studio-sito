@@ -7,9 +7,6 @@
  * --card-*). Questo file le collega alle classi Tailwind.
  */
 
-/* Modalità scura: <html data-mode="dark">, impostato da lib/color-mode.js. */
-@custom-variant dark (&:where([data-mode="dark"], [data-mode="dark"] *));
-
 /* Via la palette di Tailwind (red-600, emerald-50...): esistono solo i colori del tema. */
 @theme {
   --color-*: initial;
@@ -79,7 +76,6 @@
 
   body {
     @apply bg-bg font-body text-fg;
-    transition: background-color 0.3s ease, color 0.3s ease;
   }
 
   ::selection {

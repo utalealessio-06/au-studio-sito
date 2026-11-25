@@ -5,7 +5,7 @@
 Il sito è diviso in due parti che non si toccano:
 
 - **La macchina** (componenti, pagine, `lib/`): la landing page di AU STUDIO
-  su una sola pagina (`pages/index.jsx`), pulsanti WhatsApp, modalità scura.
+  su una sola pagina (`pages/index.jsx`), pulsanti WhatsApp. Solo modalità chiara.
   Non è più un e-commerce: carrello, catalogo e schede prodotto sono stati tolti.
   Le voci `card` e `layout` dei temi restano nel contratto ma la pagina non le usa.
 - **I vestiti** (`themes/`): tutte le scelte di stile. Un file = un tema.
@@ -61,9 +61,9 @@ Ogni file in `themes/` esporta un oggetto con queste sezioni (vedi
 - `fonts`: font dei titoli (`heading`) e del testo (`body`), caricati con
   `next/font/google` nel file del tema stesso. Sono ospitati dal sito, senza
   richieste a Google (ok GDPR), e si scaricano solo quelli del tema attivo.
-- `colors.light` e `colors.dark`: gli stessi nomi di colore per la modalità
-  chiara e per quella scura (sfondo, testo, bordi, bottone principale,
-  accento, fasce scure, saldi, successo...).
+- `colors.light`: i colori del sito (sfondo, testo, bordi, bottone
+  principale, accento, fasce scure, saldi, successo...). I temi contengono
+  ancora `colors.dark`, ma non si usa: la modalità scura è stata tolta.
 - `typography`: peso, spaziatura, maiuscolo e scala dei titoli; stile degli
   occhielli (il testo piccolo sopra i titoli).
 - `radius`: arrotondamenti di bottoni, campi, filtri, badge, card, immagini, pannelli.
@@ -81,8 +81,7 @@ tema ne manca una, in sviluppo compare un errore che dice quale.
 ## Come arriva lo stile ai componenti
 
 1. `pages/_app.js` passa il tema attivo a `themeCss()` (`lib/theme-css.js`),
-   che lo trasforma in variabili CSS: `--c-*` per i colori (una serie per
-   `:root` e una per `[data-mode="dark"]`), più `--f-*`, `--r-*`, `--sp-*`,
+   che lo trasforma in variabili CSS: `--c-*` per i colori, più `--f-*`, `--r-*`, `--sp-*`,
    `--sh-*`, `--btn-*` e `--card-*`.
 2. `styles/globals.css` collega quelle variabili alle classi Tailwind:
    `bg-surface`, `text-fg-muted`, `border-line`, `rounded-card`,
@@ -108,17 +107,14 @@ tema ne manca una, in sviluppo compare un errore che dice quale.
   in corsivo, nome gigante nel footer).
 - Un nuovo colore, prima di usarlo, va aggiunto a `COLOR_KEYS` in
   `lib/theme-css.js`, a `@theme inline` in `styles/globals.css` e a **tutti**
-  i temi, sia in `light` che in `dark`.
-- Ogni modifica va verificata con almeno due temi e in entrambe le modalità.
+  i temi, in `colors.light`.
+- Ogni modifica va verificata con almeno due temi.
 
 ## Modalità scura
 
-`lib/color-mode.js` più lo script inline in `pages/_document.js`, che
-imposta `<html data-mode="light|dark">` prima che la pagina compaia (niente
-lampo bianco). Finché il visitatore non sceglie con il pulsante in header
-(`components/ColorModeToggle.jsx`), il sito segue l'impostazione del
-dispositivo. Funziona con ogni tema perché ogni tema definisce `colors.dark`.
-Se serve, è disponibile anche la variante Tailwind `dark:`.
+Tolta: il sito è sempre chiaro, anche se il dispositivo è impostato in
+modalità scura. Non c'è più il pulsante in header né lo script in
+`pages/_document.js`.
 
 ## Contatti e prezzi
 
@@ -146,6 +142,9 @@ Se serve, è disponibile anche la variante Tailwind `dark:`.
   footer) e la fascia `bg-primary` dopo i lavori.
 - `components/Header.jsx`: fisso, trasparente sopra l'apertura e pieno
   (`bg-inverse`) appena si scorre. Sta sempre su fondo scuro, come il footer.
+  A destra "Scrivimi" e il menu a tre linee: apre una tendina con le
+  sezioni (pannello a destra da computer, a tutta larghezza da telefono),
+  si chiude con Esc, toccando fuori o scegliendo una sezione.
 - `components/PathCards.jsx`: le 3 strade, una per riga come un indice;
   toccandola si apre la tendina con i dettagli (spunte verdi = colori
   `success` / `successSoft` del tema).
@@ -160,6 +159,6 @@ Se serve, è disponibile anche la variante Tailwind `dark:`.
 ## Creare un nuovo tema
 
 1. Copia `themes/minimal-lusso.js` in `themes/<nome>.js`.
-2. Cambia font, colori (chiari **e** scuri) e le altre voci.
+2. Cambia font, colori (`colors.light`) e le altre voci.
 3. Aggiungi il nome nell'elenco in `theme.js` e nella tabella qui sopra.
-4. Prova chiaro/scuro su tutta la pagina, da telefono e da computer.
+4. Prova tutta la pagina, da telefono e da computer.

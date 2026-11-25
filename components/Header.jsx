@@ -1,5 +1,4 @@
-import { useEffect, useRef, useState } from "react";
-import ColorModeToggle from "./ColorModeToggle";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Logo from "./Logo";
 import WhatsAppIcon from "./WhatsAppIcon";
 import { whatsappUrl } from "../lib/store";
@@ -13,8 +12,34 @@ export const NAV_LINKS = [
   { href: "#contatti", label: "Contatti" },
 ];
 
-const iconButton =
-  "inline-flex h-11 w-11 items-center justify-center rounded-btn text-inverse-fg transition-colors hover:bg-inverse-fg/10";
+// Tre linee che diventano una X quando il menu è aperto.
+function MenuIcon({ open }) {
+  const line = "absolute left-0 h-px w-full bg-current transition-transform duration-300 motion-reduce:transition-none";
+  return (
+    <span aria-hidden="true" className="relative block h-3.5 w-6">
+      <span className={`${line} top-0 ${open ? "translate-y-[7px] rotate-45" : ""}`} />
+      <span className={`${line} top-[7px] transition-opacity ${open ? "opacity-0" : ""}`} />
+      <span className={`${line} top-[14px] ${open ? "-translate-y-[7px] -rotate-45" : ""}`} />
+    </span>
+  );
+}
+
+// Chiude il menu con Esc o toccando fuori.
+function useCloseOnOutside(ref, open, close) {
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (event) => event.key === "Escape" && close();
+    const onPointer = (event) => {
+      if (ref.current && !ref.current.contains(event.target)) close();
+    };
+    document.addEventListener("keydown", onKey);
+    document.addEventListener("pointerdown", onPointer);
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.removeEventListener("pointerdown", onPointer);
+    };
+  }, [ref, open, close]);
+}
 
 // Sezione che occupa il centro dello schermo, per evidenziarla nel menu.
 function useActiveSection() {
@@ -84,10 +109,12 @@ function ScrollProgress() {
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const closeMenu = () => setMenuOpen(false);
+  const closeMenu = useCallback(() => setMenuOpen(false), []);
+  const menuRef = useRef(null);
   const activeSection = useActiveSection();
   const scrolled = useScrolled();
   const solid = scrolled || menuOpen;
+  useCloseOnOutside(menuRef, menuOpen, closeMenu);
 
   return (
     <header
@@ -103,29 +130,12 @@ export default function Header() {
       >
         <Logo />
 
-        <nav aria-label="Sezioni della pagina" className="hidden items-center gap-8 lg:flex">
-          {NAV_LINKS.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              aria-current={activeSection === link.href ? "true" : undefined}
-              className={`text-xs font-semibold uppercase tracking-[0.16em] transition-colors hover:text-inverse-accent ${
-                activeSection === link.href ? "text-inverse-accent" : "text-inverse-fg/85"
-              }`}
-            >
-              {link.label}
-            </a>
-          ))}
-        </nav>
-
-        <div className="flex items-center gap-1">
-          <ColorModeToggle className={iconButton} />
-
+        <div ref={menuRef} className="relative flex items-center gap-3 sm:gap-5">
           <a
             href={whatsappUrl()}
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-primary btn-plain btn-sm ml-2 hidden sm:inline-flex"
+            className="btn-primary btn-plain btn-sm hidden sm:inline-flex"
           >
             <WhatsAppIcon />
             Scrivimi
@@ -135,37 +145,53 @@ export default function Header() {
             type="button"
             onClick={() => setMenuOpen((open) => !open)}
             aria-expanded={menuOpen}
-            aria-controls="mobile-menu"
-            className="ml-1 px-2 py-3 text-xs font-semibold uppercase tracking-[0.18em] lg:hidden"
+            aria-controls="site-menu"
+            className="flex items-center gap-3 py-3 pl-2 text-xs font-semibold uppercase tracking-[0.18em] transition-colors hover:text-inverse-accent"
           >
-            {menuOpen ? "Chiudi" : "Menu"}
+            <span className="sr-only sm:not-sr-only">{menuOpen ? "Chiudi" : "Menu"}</span>
+            <MenuIcon open={menuOpen} />
           </button>
+
+          {/* Tendina: a tutta larghezza da telefono, un pannello a destra da computer. */}
+          <nav
+            id="site-menu"
+            aria-label="Sezioni della pagina"
+            inert={!menuOpen}
+            className={`fixed inset-x-0 top-[4.75rem] border-y border-inverse-fg/15 bg-inverse transition-[opacity,translate] duration-300 motion-reduce:transition-none sm:absolute sm:inset-x-auto sm:right-0 sm:top-[calc(100%+0.75rem)] sm:w-80 sm:border sm:shadow-pop ${
+              menuOpen ? "translate-y-0 opacity-100" : "pointer-events-none -translate-y-2 opacity-0"
+            }`}
+          >
+            <div className="page-container flex flex-col pb-6 pt-2 sm:px-6!">
+              {NAV_LINKS.map((link, index) => (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  onClick={closeMenu}
+                  aria-current={activeSection === link.href ? "true" : undefined}
+                  className={`flex items-baseline gap-4 border-b border-inverse-fg/15 py-4 font-heading text-3xl transition-colors hover:text-inverse-accent ${
+                    activeSection === link.href ? "italic text-inverse-accent" : ""
+                  }`}
+                >
+                  <span className="font-body text-[0.7rem] font-semibold not-italic tracking-[0.14em] text-inverse-accent">
+                    {String(index + 3).padStart(2, "0")}
+                  </span>
+                  {link.label}
+                </a>
+              ))}
+              <a
+                href={whatsappUrl()}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={closeMenu}
+                className="btn-primary mt-6 w-full sm:hidden"
+              >
+                <WhatsAppIcon className="h-5 w-5" />
+                Scrivimi su WhatsApp
+              </a>
+            </div>
+          </nav>
         </div>
       </div>
-
-      {menuOpen && (
-        <nav id="mobile-menu" aria-label="Sezioni della pagina" className="border-t border-inverse-fg/15 bg-inverse lg:hidden">
-          <div className="page-container flex flex-col pb-6 pt-2">
-            {NAV_LINKS.map((link, index) => (
-              <a
-                key={link.href}
-                href={link.href}
-                onClick={closeMenu}
-                className="flex items-baseline gap-4 border-b border-inverse-fg/15 py-4 font-heading text-3xl"
-              >
-                <span className="font-body text-[0.7rem] font-semibold tracking-[0.14em] text-inverse-accent">
-                  {String(index + 3).padStart(2, "0")}
-                </span>
-                {link.label}
-              </a>
-            ))}
-            <a href={whatsappUrl()} target="_blank" rel="noopener noreferrer" className="btn-primary mt-6 w-full">
-              <WhatsAppIcon className="h-5 w-5" />
-              Scrivimi su WhatsApp
-            </a>
-          </div>
-        </nav>
-      )}
     </header>
   );
 }
