@@ -30,14 +30,36 @@ const LUMIERE = {
   name: "Lumière Candles",
   url: "https://lumierecandle.net",
   domain: "lumierecandle.net",
-  text: "Negozio online di candele profumate fatte a mano. Le candele sono belle: il sito doveva esserlo altrettanto, e rendere facile ordinarle anche dal telefono.",
+  text: "Candele profumate fatte a mano, che adesso si ordinano in tre tocchi dal telefono, a qualsiasi ora. Le candele sono belle: il sito doveva esserlo altrettanto.",
   done: [
     "Catalogo con foto, prezzi e varianti",
-    "Carrello e ordini online",
-    "Pannello per aggiornare prodotti e prezzi in autonomia",
-    "Pensato prima di tutto per il telefono",
+    "Ordini e pagamenti online, pensati prima di tutto per il telefono",
+    "Prodotti e prezzi aggiornabili in autonomia, senza chiamare nessuno",
   ],
 };
+
+// APSOC, parte "Problema": prima il problema del titolare, poi la soluzione.
+const PAINS = [
+  "Rispondi ogni giorno alle stesse domande su WhatsApp: orari, prezzi, “avete la M?”",
+  "La sera e la domenica la saracinesca è abbassata, e chi ti cerca non ha nessun altro posto dove guardare",
+  "Hai chiesto un preventivo a un’agenzia: cifre vaghe, tempi lunghi, e nessuno che ti risponde davvero",
+];
+
+// Il punto unico di vendita (USP): tre vantaggi che insieme nessuna agenzia offre.
+const USP = [
+  {
+    title: "Prezzi scritti, non “dipende”",
+    text: "Li trovi qui sotto, con tutto quello che è incluso. Nessuna voce a sorpresa a fine lavoro.",
+  },
+  {
+    title: "Parli solo con me",
+    text: "Niente centralino e niente account manager: mi scrivi su WhatsApp e ti rispondo io, di persona.",
+  },
+  {
+    title: "Online in pochi giorni",
+    text: "Il sito vetrina è pronto in 5–7 giorni lavorativi da quando ricevo foto e testi. Non in tre mesi.",
+  },
+];
 
 const STEPS = [
   {
@@ -54,42 +76,51 @@ const STEPS = [
   },
   {
     title: "Sei online",
-    text: "Ti spiego come funziona e resto a disposizione. Con il sito vetrina gli aggiornamenti li faccio io.",
+    text: "Da quel giorno chi ti cerca ti trova, a qualsiasi ora. Resto a disposizione: con il sito vetrina gli aggiornamenti li faccio io.",
   },
 ];
 
+// Le obiezioni, dalla più forte alla più debole (manuale APSOC, parte "Obiezioni").
 const FAQS = [
   {
-    q: "Quanto tempo ci vuole?",
-    a: "Sito vetrina e negozio Boutique: 5–7 giorni lavorativi da quando ricevo foto e testi. Negozio e Completo: 10–15 giorni. I servizi extra: 1–3 giorni.",
+    q: "Non ti conosco: perché dovrei fidarmi?",
+    a: "Perché non devi farlo sulla parola. Il sito di Lumière Candles è online e puoi aprirlo adesso. Il tuo sito lo vedi e lo approvi prima che vada online, e per il negozio Shopify il saldo si paga solo alla consegna. E dall’altra parte del telefono ci sono io, con nome, faccia e numero: se qualcosa non va, sai sempre chi chiamare.",
+  },
+  {
+    q: "Ho già Instagram: mi serve davvero un sito?",
+    a: "Instagram è ottimo per farti vedere, ma non mostra prezzi, orari e taglie in un colpo d’occhio, e su Google conta poco. Il sito lavora insieme a Instagram, non al posto suo: chi ti scopre nei post trova tutto in un unico posto e ti scrive con un tocco.",
   },
   {
     q: "Meglio il sito vetrina o il negozio Shopify?",
-    a: "Se vuoi farti trovare e far venire gente in negozio, basta il sito vetrina: i clienti ti scrivono o passano a trovarti. Se vuoi vendere online e spedire, ti serve il negozio Shopify. Se hai dubbi, scrivimi e ne parliamo.",
+    a: "Se vuoi farti trovare e far venire gente in negozio, basta il sito vetrina: i clienti ti scrivono o passano a trovarti. Se vuoi vendere online e spedire, ti serve il negozio Shopify. Se hai dubbi, scrivimi: ti dico io cosa ti serve davvero, anche se è la soluzione che costa meno.",
   },
   {
     q: "Ci sono altri costi?",
     a: "Con il sito vetrina in abbonamento no: hosting e dominio sono inclusi nel canone. Senza abbonamento paghi solo il dominio, circa €12 l’anno. Con Shopify, l’abbonamento mensile a Shopify, il dominio e le commissioni sui pagamenti li paghi direttamente a Shopify e ai fornitori.",
   },
   {
-    q: "Come si paga?",
-    a: "Negozio Shopify e sito senza abbonamento: acconto del 30% e saldo alla consegna. Sito vetrina in abbonamento: l’attivazione all’inizio, poi il canone ogni mese, in anticipo.",
+    q: "Non ho tempo e non sono pratico di computer. È un problema?",
+    a: "No. Mi mandi foto e testi una volta, con una lista che ti preparo io, e al resto penso io. Con il sito vetrina, quando hai una novità mi mandi un messaggio e la pubblico io, fino a 4 aggiornamenti al mese. Con il negozio Shopify sono incluse la formazione e un periodo di assistenza.",
+  },
+  {
+    q: "Quanto tempo ci vuole?",
+    a: "Sito vetrina e negozio Boutique: 5–7 giorni lavorativi da quando ricevo foto e testi. Negozio e Completo: 10–15 giorni. I servizi extra: 1–3 giorni.",
   },
   {
     q: "Il sito è mio?",
     a: "Il negozio Shopify e il suo account sono intestati a te fin dall’inizio, e restano tuoi. Il sito vetrina in abbonamento resta attivo finché è attivo l’abbonamento; quello senza abbonamento è tuo, sul tuo dominio.",
   },
   {
+    q: "Come si paga?",
+    a: "Negozio Shopify e sito senza abbonamento: acconto del 30% e saldo alla consegna. Sito vetrina in abbonamento: l’attivazione all’inizio, poi il canone ogni mese, in anticipo.",
+  },
+  {
     q: "Posso disdire il sito vetrina?",
     a: "Sì. Il minimo è 6 mesi, poi continui mese per mese e puoi disdire quando vuoi.",
   },
   {
-    q: "Non sono pratico di computer. È un problema?",
-    a: "No. Con il negozio Shopify è inclusa la formazione e un periodo di assistenza. Con il sito vetrina non devi fare niente: mi mandi le novità e le pubblico io, fino a 4 aggiornamenti al mese.",
-  },
-  {
     q: "Il preventivo è gratis?",
-    a: `Sì, gratuito e senza impegno. I prezzi del listino sono validi fino al ${PRICES_VALID_UNTIL}.`,
+    a: `Sì, gratuito e senza impegno: se non fa per te, me lo dici e finisce lì. I prezzi del listino sono validi fino al ${PRICES_VALID_UNTIL}.`,
   },
 ];
 
@@ -171,18 +202,21 @@ export default function HomePage() {
             <p className="eyebrow text-accent">
               {STORE_NAME} · {OWNER_NAME} · {CITY}
             </p>
-            <h1 className="heading-display mt-5 text-fg">Porta il tuo negozio online</h1>
+            <h1 className="heading-display mt-5 text-fg">Quando ti cercano su Google, trovano il tuo negozio?</h1>
             <p className="mt-6 max-w-xl text-lg leading-relaxed text-fg-muted">
-              Siti vetrina e negozi Shopify per i negozi di {CITY}, pronti in pochi giorni. Prezzi
-              chiari, niente sorprese, e parli sempre con me.
+              Ti preparo il sito vetrina o il negozio Shopify che fa trovare il tuo negozio di {CITY}{" "}
+              <strong className="font-medium text-fg">in pochi giorni</strong>, con{" "}
+              <strong className="font-medium text-fg">prezzi scritti</strong> e una sola persona da chiamare: io.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <WhatsAppButton className="btn-primary w-full sm:w-auto" />
+              <WhatsAppButton className="btn-primary w-full sm:w-auto">Chiedi il preventivo gratuito</WhatsAppButton>
               <a href="#prezzi" className="btn-secondary w-full sm:w-auto">
                 Guarda i prezzi
               </a>
             </div>
-            <p className="mt-4 text-sm text-fg-muted">Preventivo gratuito e senza impegno.</p>
+            <p className="mt-4 text-sm text-fg-muted">
+              Si apre WhatsApp con il messaggio già scritto. Gratis e senza impegno.
+            </p>
           </div>
 
           {/* Ritratto nel formato originale, con una cornice oro sfalsata come i filetti del listino. */}
@@ -216,12 +250,65 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Il problema (APSOC: prima il problema, poi la soluzione) */}
+      <section id="problema" className="py-section">
+        <div className="page-container grid gap-10 lg:grid-cols-[3fr_2fr] lg:gap-16">
+          <Reveal>
+            <SectionIntro
+              eyebrow="Ti riconosci?"
+              title="Il tuo negozio è curato in ogni dettaglio. Online, però, è come se fosse chiuso."
+            />
+            <p className="mt-6 max-w-2xl leading-relaxed text-fg-muted">
+              Sono le nove di sera. Una cliente ha visto una giacca nella tua vetrina e vuole sapere se
+              c’è la sua taglia. Ti cerca su Google: trova una foto vecchia e degli orari che non sa se
+              sono giusti. Prova su Instagram: niente prezzi, nessun modo di chiedere al volo. Dopo due
+              minuti chiude tutto e compra altrove, da chi le ha dato una risposta prima.
+            </p>
+          </Reveal>
+
+          <Reveal delay={120} className="self-center">
+            <ul className="border-t border-fg text-fg-muted">
+              {PAINS.map((pain) => (
+                <li key={pain} className="flex gap-3 border-b border-line py-4">
+                  <Dot />
+                  {pain}
+                </li>
+              ))}
+            </ul>
+          </Reveal>
+        </div>
+
+        <div className="page-container">
+          <Reveal className="mt-12 border-l-2 border-accent pl-5">
+            <p className="max-w-3xl text-lg leading-relaxed text-fg">
+              Ogni settimana senza un sito, le persone che cercano un negozio come il tuo{" "}
+              <strong className="font-medium">trovano qualcun altro</strong>. Non perché sia più bravo
+              di te: solo perché si fa trovare.
+            </p>
+          </Reveal>
+
+          <Reveal className="mt-section-tight border-t border-fg pt-10">
+            <p className="eyebrow text-accent">La soluzione</p>
+            <h2 className="heading-2 mt-3 max-w-2xl text-fg">Per questo è nato {STORE_NAME}</h2>
+          </Reveal>
+          <ul className="mt-8 grid gap-grid md:grid-cols-3">
+            {USP.map((item, index) => (
+              <Reveal as="li" key={item.title} delay={index * 120} className="rounded-card border border-line p-6">
+                <p className="heading-3 text-fg">{item.title}</p>
+                <p className="mt-2 text-sm leading-relaxed text-fg-muted">{item.text}</p>
+              </Reveal>
+            ))}
+          </ul>
+        </div>
+      </section>
+
       {/* Le 3 strade */}
       <section id="prezzi" className="bg-surface-alt py-section">
         <div className="page-container">
           <Reveal>
             <SectionIntro eyebrow="Le 3 strade" title="Scegli la strada giusta per te">
-              Tocca una strada per vedere cosa include. E aggiungi il resto solo quando serve.
+              Tocca una strada per vedere cosa include. Parti da quello che ti serve oggi e aggiungi il
+              resto solo quando serve.
             </SectionIntro>
           </Reveal>
 
@@ -246,10 +333,14 @@ export default function HomePage() {
           <Reveal className="mt-12 flex flex-col gap-5 border-t border-fg pt-8 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <p className="heading-3 text-fg">Non sai quale scegliere?</p>
-              <p className="mt-1 text-fg-muted">Scrivimi e ti dico io cosa ti serve davvero. Il preventivo è gratuito.</p>
-              <p className="mt-1 text-xs text-fg-muted">Prezzi validi fino al {PRICES_VALID_UNTIL}.</p>
+              <p className="mt-1 text-fg-muted">
+                Scrivimi e ti dico io cosa ti serve davvero, anche se è la soluzione che costa meno.
+              </p>
+              <p className="mt-1 text-sm text-fg">
+                Questi prezzi valgono <strong className="font-medium">fino al {PRICES_VALID_UNTIL}</strong>.
+              </p>
             </div>
-            <WhatsAppButton className="btn-primary w-full shrink-0 sm:w-auto" />
+            <WhatsAppButton className="btn-primary w-full shrink-0 sm:w-auto">Dimmi cosa mi serve</WhatsAppButton>
           </Reveal>
         </div>
       </section>
@@ -296,8 +387,9 @@ export default function HomePage() {
           {/* Siti fatti per attività vere (lib/portfolio.js) */}
           <Reveal className="mt-section border-t border-fg pt-10">
             <SectionIntro eyebrow="Altri lavori" title="Come potrebbe essere il tuo">
-              Siti che ho preparato per attività vere del Lazio: ristoranti e B&amp;B, ognuno disegnato
-              su misura. Quelli segnati come “Proposta” sono anteprime mostrate ai titolari.
+              Ristoranti e B&amp;B veri del Lazio: per ognuno ho studiato l’attività, disegnato un sito su
+              misura e l’ho mostrato al titolare (sono le “Proposte”). È lo stesso lavoro che farei per il
+              tuo negozio, prima ancora che tu spenda un euro per vederlo.
             </SectionIntro>
           </Reveal>
 
@@ -326,7 +418,7 @@ export default function HomePage() {
       <section id="domande" className="py-section">
         <div className="page-container grid gap-10 lg:grid-cols-[1fr_2fr]">
           <Reveal>
-            <SectionIntro eyebrow="Domande frequenti" title="Le risposte, prima di scrivermi">
+            <SectionIntro eyebrow="Domande frequenti" title="I dubbi che hanno tutti, prima di scrivermi">
               Non trovi la tua? Chiedimela su WhatsApp.
             </SectionIntro>
           </Reveal>
@@ -353,10 +445,11 @@ export default function HomePage() {
             <h2 className="heading-1 mt-3">Parliamo del tuo negozio</h2>
             <p className="mt-4 max-w-md text-inverse-muted">
               Scrivimi su WhatsApp: ti rispondo io, di persona. Il messaggio è già pronto, devi solo
-              premere invia.
+              premere invia. Il preventivo è gratuito e non ti impegna a niente.
             </p>
             <p className="mt-2 text-sm italic text-inverse-muted">“{CONTACT_MESSAGE}”</p>
-            <WhatsAppButton className="btn-inverse mt-8 w-full sm:w-auto" />
+            <WhatsAppButton className="btn-inverse mt-8 w-full sm:w-auto">Chiedi il preventivo gratuito</WhatsAppButton>
+            <p className="mt-3 text-xs text-inverse-muted">Prezzi del listino validi fino al {PRICES_VALID_UNTIL}.</p>
           </div>
 
           <dl className="divide-y divide-inverse-fg/15 border-y border-inverse-fg/15">
