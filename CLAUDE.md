@@ -125,7 +125,7 @@ modalità scura. Non c'è più il pulsante in header né lo script in
   solo questo file.
 - `public/lavori/`: foto dei lavori realizzati (Lumière Candles).
 - `lib/portfolio.js` + `public/portfolio/*.jpg`: i siti fatti per attività
-  vere (Rumino, Carpe Diem, Le Falesie, L'Amicizia, La Finestra sul Lago)
+  vere (Rumino, Carpe Diem, L'Amicizia, La Finestra sul Lago)
   della sezione "Come potrebbe essere il tuo", mostrati da
   `components/MockupShowcase.jsx`. Le immagini sono screenshot dei siti in
   `~/Desktop/LAVORI` (1440×900 da computer, 390×844 da telefono).
