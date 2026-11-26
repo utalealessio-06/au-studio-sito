@@ -129,8 +129,13 @@ export default function Header() {
   useCloseOnOutside(menuRef, menuOpen, closeMenu);
 
   // Una capsula sospesa sopra la pagina: si fa più compatta appena si scorre.
+  // L'<header> è una fascia piena nel colore del fondo, attaccata al bordo
+  // in alto: Safari 26 (barra degli strumenti trasparente) riconosce gli
+  // elementi fissi in alto con un colore pieno e ci tinge la sua barra;
+  // senza, sfuma la parte alta della pagina e la capsula sembra tagliata.
+  // Sotto la fascia una sfumatura breve evita lo stacco con la pagina.
   return (
-    <header className="fixed inset-x-0 top-0 z-40 px-3 pt-3 sm:px-5 sm:pt-4">
+    <header className="fixed inset-x-0 top-0 z-40 bg-bg px-3 pb-2 pt-3 after:pointer-events-none after:absolute after:inset-x-0 after:top-full after:h-6 after:bg-linear-to-b after:from-bg after:to-transparent sm:px-5 sm:pt-4">
       <div ref={menuRef} className="relative mx-auto max-w-[var(--sp-container)]">
         <div
           className={`relative flex items-center justify-between gap-4 rounded-full border border-line bg-bg/75 pl-5 pr-2 shadow-card backdrop-blur-xl transition-[height,background-color] duration-200 ease-out sm:pl-7 ${

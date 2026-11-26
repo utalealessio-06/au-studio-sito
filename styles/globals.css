@@ -339,7 +339,7 @@
    toni dei filetti del tema: vanno sia su fondo chiaro sia scuro. */
 @utility glow {
   background:
-    radial-gradient(60% 55% at 0% 0%, color-mix(in srgb, var(--c-line-strong) 30%, transparent), transparent 70%),
+    radial-gradient(55% 50% at 0% 60%, color-mix(in srgb, var(--c-line-strong) 30%, transparent), transparent 70%),
     radial-gradient(50% 60% at 100% 100%, color-mix(in srgb, var(--c-accent-soft) 70%, transparent), transparent 70%),
     var(--c-bg);
 }
