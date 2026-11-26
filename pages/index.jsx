@@ -211,8 +211,8 @@ function CtaNote({ className = "", children = "Si apre WhatsApp con il messaggio
 // Etichetta della sezione: una piccola pillola con numero e nome.
 function Chip({ n, children }) {
   return (
-    <span className="inline-flex items-center gap-2.5 rounded-full border border-line bg-surface py-1.5 pl-1.5 pr-4 text-xs text-fg-muted">
-      <span className="flex h-6 min-w-6 items-center justify-center rounded-full bg-accent-soft px-1.5 tabular-nums text-fg">{n}</span>
+    <span className="inline-flex items-center gap-2.5 rounded-chip border border-line bg-surface py-1.5 pl-1.5 pr-4 text-xs text-fg-muted">
+      <span className="flex h-6 min-w-6 items-center justify-center rounded-chip bg-accent-soft px-1.5 tabular-nums text-fg">{n}</span>
       {children}
     </span>
   );
@@ -322,7 +322,7 @@ function PillStack() {
         <li
           key={title}
           style={{ zIndex: i + 1 }}
-          className={`rise relative ${i > 0 ? "-mt-9" : ""} rounded-full px-8 pb-12 pt-5 shadow-pop ring-1 ring-fg/5 sm:px-10 ${PILL_TONES[i]} ${PILL_DELAYS[i]}`}
+          className={`rise relative ${i > 0 ? "-mt-9" : ""} rounded-btn px-8 pb-12 pt-5 shadow-pop ring-1 ring-fg/5 sm:px-10 ${PILL_TONES[i]} ${PILL_DELAYS[i]}`}
         >
           <span className="text-xs tabular-nums opacity-60">{String(i + 1).padStart(2, "0")}</span>
           <span className="heading ml-3 text-xl sm:text-2xl">{title}</span>
@@ -334,7 +334,7 @@ function PillStack() {
           href={whatsappUrl()}
           target="_blank"
           rel="noopener noreferrer"
-          className="group flex items-center gap-4 rounded-full bg-primary py-5 pl-5 pr-8 text-primary-fg shadow-pop transition-[background-color,transform] duration-160 ease-out hover:bg-primary-hover active:scale-[0.98] sm:pl-6"
+          className="group flex items-center gap-4 rounded-btn bg-primary py-5 pl-5 pr-8 text-primary-fg shadow-pop transition-[background-color,transform] duration-160 ease-out hover:bg-primary-hover active:scale-[0.98] sm:pl-6"
         >
           <Image
             src={ownerPhoto}
@@ -604,7 +604,7 @@ export default function HomePage() {
           {/* Prova 1 */}
           <Reveal className={`${CARD} grid items-center gap-8 p-3 sm:p-4 lg:grid-cols-[7fr_5fr] lg:gap-12`}>
             <ImageReveal>
-              <a href={LUMIERE.url} target="_blank" rel="noopener noreferrer" className="group relative block overflow-hidden rounded-[calc(var(--r-panel)-0.75rem)]">
+              <a href={LUMIERE.url} target="_blank" rel="noopener noreferrer" className="group relative block overflow-hidden rounded-[max(0px,calc(var(--r-panel)-0.75rem))]">
                 <Image
                   src={lumierePhoto}
                   alt="Candela Raspberry Delight di Lumière Candles"
@@ -612,7 +612,7 @@ export default function HomePage() {
                   placeholder="blur"
                   className="card-zoom aspect-16/11 w-full object-cover"
                 />
-                <span className="absolute left-4 top-4 rounded-full bg-glass px-3 py-1.5 text-xs text-fg backdrop-blur">
+                <span className="absolute left-4 top-4 rounded-chip bg-glass px-3 py-1.5 text-xs text-fg backdrop-blur">
                   Cliente · Negozio online
                 </span>
               </a>

@@ -15,7 +15,7 @@ function Devices({ mockup }) {
           <span className="h-2 w-2 rounded-full bg-accent-soft" />
           <span className="h-2 w-2 rounded-full bg-accent-soft" />
           <span className="h-2 w-2 rounded-full bg-accent-soft" />
-          <span className="ml-2 truncate rounded-full bg-surface px-3 py-0.5 text-[10px] text-fg-subtle">
+          <span className="ml-2 truncate rounded-chip bg-surface px-3 py-0.5 text-[10px] text-fg-subtle">
             {mockup.url ? mockup.url.replace(/^https?:\/\//, "") : mockup.name}
           </span>
         </div>
@@ -60,7 +60,7 @@ export default function MockupShowcase({ items = MOCKUPS, start = 1, children })
           <div className="flex flex-1 flex-col px-3 pb-3 pt-4 sm:px-4">
             <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
               <h3 className="heading text-[clamp(1.5rem,1.2rem+1vw,2rem)] text-fg">{mockup.name}</h3>
-              <span className="rounded-full bg-accent-soft px-3 py-1 text-xs tabular-nums text-fg-muted">
+              <span className="rounded-chip bg-accent-soft px-3 py-1 text-xs tabular-nums text-fg-muted">
                 {String(start + index).padStart(2, "0")} · {mockup.status}
               </span>
             </div>
@@ -68,7 +68,7 @@ export default function MockupShowcase({ items = MOCKUPS, start = 1, children })
 
             <ul className="mt-4 flex flex-wrap gap-2">
               {mockup.points.map((point) => (
-                <li key={point} className="rounded-full border border-line px-3 py-1 text-xs text-fg-muted">
+                <li key={point} className="rounded-chip border border-line px-3 py-1 text-xs text-fg-muted">
                   {point}
                 </li>
               ))}

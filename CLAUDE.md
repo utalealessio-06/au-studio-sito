@@ -25,7 +25,8 @@ Temi disponibili:
 
 | File | Stile |
 | --- | --- |
-| `themes/avorio.js` | **Tema del sito.** Chiaro e caldo, palette `#f4f5ef` (avorio) `#aba398` (tortora) `#07080d` (quasi nero), tortora scurito per i testi piccoli; Inter Tight + corsivo Instrument Serif, bottoni a pillola neri, card arrotondate con ombre morbide |
+| `themes/muschio.js` | **Tema del sito.** Scuro e architettonico: carbone `#121212`, muschio `#3B3C2E`, verde chiaro `#737158`, cemento `#707070`, grigio chiaro `#E1E1E1`; Inter Tight semibold + corsivo Instrument Serif, angoli quasi vivi (rettangoli come i blocchi della palette) |
+| `themes/avorio.js` | Chiaro e caldo, palette `#f4f5ef` (avorio) `#aba398` (tortora) `#07080d` (quasi nero), tortora scurito per i testi piccoli; Inter Tight + corsivo Instrument Serif, bottoni a pillola neri, card arrotondate con ombre morbide |
 | `themes/ardesia.js` | Scuro blu-ardesia, palette `#06141B` `#11212D` `#253745` `#4A5C6A` `#9BA8AB` `#CCD0CF`; Inter Tight + corsivo Instrument Serif per le parole in evidenza, bottoni a pillola, card arrotondate con ombre profonde |
 | `themes/grigio.js` | Come editoriale ma in scala di grigi: tortora `#a8a19b` per bottoni e fascia centrale, grigio-azzurro `#99a3ad` come accento, fasce antracite `#3b3b3b`, fondo `#f7f7f7` |
 | `themes/editoriale.js` | Stile rivista: blu notte `#14213d` e oro `#fca311`, Instrument Serif + Inter, titoli grandi con una parola in corsivo oro, angoli vivi, bottoni in maiuscolo con freccia ↗ |
@@ -205,7 +206,10 @@ Tailwind: `ease-out` = `cubic-bezier(0.23, 1, 0.32, 1)`, `ease-in-out` =
   `Split` (titolo fermo a sinistra mentre le card scorrono a destra) e
   `CenterHead` (titolo centrato e griglia di card sotto). Le card hanno la
   classe `CARD` (`rounded-panel border bg-surface shadow-card`); l'etichetta
-  di sezione è la pillola `Chip` ("01 · Ti riconosci?"). Le parole in
+  di sezione è `Chip` ("01 · Ti riconosci?"). Le forme seguono il raggio del
+  tema (`rounded-btn`, `rounded-chip`...), non `rounded-full`: pillole con
+  avorio, rettangoli con muschio. Restano tondi solo i cerchi con i numeri
+  e il pulsante WhatsApp da telefono. Le parole in
   corsivo nei titoli sono `<em className="text-accent">`.
 - `components/Header.jsx`: capsula sospesa in alto (fissa), con logo,
   "Scrivimi" e menu a tre linee; si fa più compatta appena si scorre e ha

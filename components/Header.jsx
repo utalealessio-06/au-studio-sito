@@ -138,7 +138,7 @@ export default function Header() {
     <header className="fixed inset-x-0 top-0 z-40 bg-bg px-3 pb-2 pt-3 after:pointer-events-none after:absolute after:inset-x-0 after:top-full after:h-6 after:bg-linear-to-b after:from-bg after:to-transparent sm:px-5 sm:pt-4">
       <div ref={menuRef} className="relative mx-auto max-w-[var(--sp-container)]">
         <div
-          className={`relative flex items-center justify-between gap-4 rounded-full border border-line bg-bg/75 pl-5 pr-2 shadow-card backdrop-blur-xl transition-[height,background-color] duration-200 ease-out sm:pl-7 ${
+          className={`relative flex items-center justify-between gap-4 rounded-btn border border-line bg-bg/75 pl-5 pr-2 shadow-card backdrop-blur-xl transition-[height,background-color] duration-200 ease-out sm:pl-7 ${
             scrolled ? "h-14 bg-bg/90" : "h-16"
           }`}
         >
@@ -165,7 +165,7 @@ export default function Header() {
               onClick={toggleMenu}
               aria-expanded={menuOpen}
               aria-controls="site-menu"
-              className="flex h-11 items-center gap-3 rounded-full px-4 text-sm font-medium text-fg transition-[background-color,scale] duration-150 ease-out hover:bg-surface active:scale-[0.97]"
+              className="flex h-11 items-center gap-3 rounded-btn px-4 text-sm font-medium text-fg transition-[background-color,scale] duration-150 ease-out hover:bg-surface active:scale-[0.97]"
             >
               <span className="sr-only sm:not-sr-only">{menuOpen ? "Chiudi" : "Menu"}</span>
               <MenuIcon open={menuOpen} />
@@ -191,7 +191,7 @@ export default function Header() {
               href={link.href}
               onClick={() => closeMenu()}
               aria-current={activeSection === link.href ? "true" : undefined}
-              className={`flex items-center justify-between rounded-[calc(var(--r-panel)-0.5rem)] px-5 py-3.5 text-lg transition-colors duration-150 hover:bg-accent-soft ${
+              className={`flex items-center justify-between rounded-[max(0px,calc(var(--r-panel)-0.5rem))] px-5 py-3.5 text-lg transition-colors duration-150 hover:bg-accent-soft ${
                 activeSection === link.href ? "bg-accent-soft text-fg" : "text-fg-muted hover:text-fg"
               }`}
             >
