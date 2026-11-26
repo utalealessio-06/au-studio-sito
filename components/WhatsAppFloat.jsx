@@ -26,8 +26,9 @@ export default function WhatsAppFloat() {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Scrivimi su WhatsApp"
-      className={`btn-primary fixed bottom-4 right-4 z-40 h-14 w-14 rounded-full p-0! shadow-pop transition-[opacity,translate] duration-300 after:content-none! sm:bottom-7 sm:right-7 sm:h-auto sm:w-auto sm:rounded-btn sm:px-[1.375rem]! sm:py-4! sm:after:content-[var(--btn-arrow)]! ${
-        past ? "" : "sm:pointer-events-none sm:translate-y-4 sm:opacity-0"
+      // Entra in 250 ms, esce in 150 ms: chiusure sempre più rapide delle aperture.
+      className={`btn-primary fixed bottom-4 right-4 z-40 h-14 w-14 rounded-full p-0! shadow-pop transition-[opacity,translate,transform,background-color]! ease-out after:content-none! sm:bottom-7 sm:right-7 sm:h-auto sm:w-auto sm:rounded-btn sm:px-[1.375rem]! sm:py-4! sm:after:content-[var(--btn-arrow)]! motion-reduce:translate-y-0! ${
+        past ? "duration-250" : "duration-150 sm:pointer-events-none sm:translate-y-3 sm:opacity-0"
       }`}
     >
       <WhatsAppIcon className="h-7 w-7 sm:h-5 sm:w-5" />

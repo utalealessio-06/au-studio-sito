@@ -90,8 +90,9 @@ tema ne manca una, in sviluppo compare un errore che dice quale.
    `heading-1`/`-2`/`-3`, `eyebrow`, `btn-primary`/`btn-secondary`/`btn-inverse`,
    `btn-ghost` (solo bordo, nel colore del testo intorno), `btn-on-primary`
    (pieno, sopra la fascia `bg-primary`), più `btn-sm` e `btn-plain` (senza
-   freccia), `link-more`, `hero-backdrop`, `type-in` + `caret` (titolo che si
-   scrive), `product-card*`, `page-container`.
+   freccia), `link-more`, `hero-backdrop`, `rise` / `wipe` (entrata
+   dell'apertura, ritardo con `[--d:80ms]`), `accordion` (tendine
+   `<details>` fluide), `product-card*`, `page-container`.
 3. Le scelte di struttura (es. `card.addButton`, `layout.gridColumns`,
    `layout.navStyle`) i componenti le leggono direttamente con
    `const { card, layout } = useTheme()` (vedi "Selettore di anteprima").
@@ -132,29 +133,81 @@ modalità scura. Non c'è più il pulsante in header né lo script in
   `status: "Proposta"` = anteprima non ancora comprata; quando diventa
   cliente si mette `"Cliente"` e l'`url` del sito online (compare il link).
 
+## Logica del copy: APSOC
+
+La pagina segue APSOC del "Manuale del copywriting" (Attenzione, Problema,
+Soluzione, Obiezioni, Call to action). Lo schema è anche in cima a
+`pages/index.jsx`. Regola rigida: **prima il problema, poi la soluzione**.
+
+| Sezione | APSOC | Cosa fa |
+| --- | --- | --- |
+| Apertura | Attenzione | Titolo sul pain point in seconda persona ("Alle otto abbassi la saracinesca. / I tuoi clienti continuano a cercarti."), cosa faccio in una frase, USP in 3 parti, CTA con nota |
+| 01 · Ti riconosci? | Problema | Storia della cliente alle nove di sera ("mostra, non dire"), 3 problemi, conseguenza del non agire (effetto domino) |
+| 02 · La soluzione | Soluzione | 3 vantaggi (Ti trovano / Ti scrivono / Ti scelgono), USP "perché me e non un'agenzia", valore condiviso (negozi di quartiere) |
+| 03 · Prezzi | Soluzione | Le 3 strade con i prezzi scritti |
+| 04 · Come funziona | Soluzione | Chiarezza sul post-acquisto: cosa succede, passo per passo, dopo il primo messaggio |
+| 05 · Perché fidarti | Obiezioni | L'obiezione più forte ("non mi conosci") con CPB: Claim, 3 Prove (Lumière online, Proposte fatte prima del pagamento, garanzie reali), Benefit |
+| Fascia `bg-primary` | CTA | Conseguenza del non agire + scadenza vera del listino |
+| 06 · Domande | Obiezioni | Le altre obiezioni, dalla più forte alla più debole |
+| 07 · Contatti | CTA | CTA profonda ("Fai trovare il tuo negozio") e cosa succede quando si preme |
+
+Regole per chi cambia i testi:
+- Sotto ogni CTA c'è `CtaNote`: dice cosa succede quando si preme
+  ("Si apre WhatsApp con il messaggio già scritto · Nessun impegno").
+- Niente recensioni, numeri o statistiche inventati: si usano solo prove
+  vere (siti online, garanzie del listino). L'unica urgenza è la scadenza
+  reale `PRICES_VALID_UNTIL`.
+- Grassetto solo sulle parole che convincono ("prezzo scritto", "gratuito").
+- Liste da 3 dove possibile (regola del 3), frasi brevi.
+
+## Movimento (Emil Kowalski)
+
+Le curve sono in `@theme` in `styles/globals.css` e sostituiscono quelle di
+Tailwind: `ease-out` = `cubic-bezier(0.23, 1, 0.32, 1)`, `ease-in-out` =
+`cubic-bezier(0.77, 0, 0.175, 1)`, `ease-drawer`.
+
+- **Quale curva:** cose che entrano/escono → `ease-out`; cose che si
+  spostano o cambiano forma sullo schermo → `ease-in-out`; hover e colori →
+  `ease`. Mai `ease-in`.
+- **Quanto dura:** pressione 160 ms, tendine e popover 150–250 ms (sotto i
+  300 ms), chiusura sempre più rapida dell'apertura. L'entrata dell'apertura
+  e le foto che si scoprono possono durare di più (si vedono una volta).
+- **Bottoni:** `scale(0.97)` alla pressione (nella classe `btn`). I cerchi
+  "+" delle tendine scendono a `scale-90` con `group-active`.
+- **Menu:** si apre dall'angolo del bottone (`origin-top-right`), da
+  `scale-[0.97]` + opacità, mai da `scale(0)`. Chiuso con **Esc** sparisce
+  senza animazione: le azioni da tastiera non si animano.
+- **Hover:** solo con il mouse (`@media (hover: hover) and (pointer: fine)`;
+  in Tailwind v4 la variante `hover:` lo fa già).
+- **Proprietà:** solo quelle dichiarate (`transition-[opacity,translate]`),
+  mai `transition-all`. Si animano `transform`/`opacity`/`clip-path`; le
+  tendine animano l'altezza perché serve.
+- **Scaglionamenti:** brevi e non uniformi (60–120 ms), mai bloccanti.
+- **Riduci movimento:** niente spostamenti, ma le dissolvenze restano
+  (`Reveal`, `rise`, `wipe`, `accordion`).
+
 ## Interazioni della landing
 
-- Struttura della pagina: apertura scura (`bg-inverse`) a tutto schermo con
+- Struttura visiva: apertura scura (`bg-inverse`) a tutto schermo con
   cornice sottile, poi sezioni numerate "01 · …" fino a "07 · Contatti"
   (`SectionHead` in `pages/index.jsx`). Le parole in corsivo nei titoli sono
   `<em className="text-accent">` (`text-inverse-accent` sulle fasce scure).
-  Fondi alternati: `bg-surface-alt`, `bg-bg`, `bg-inverse` (Lavori, Contatti,
-  footer) e la fascia `bg-primary` dopo i lavori.
 - `components/Header.jsx`: fisso, trasparente sopra l'apertura e pieno
-  (`bg-inverse`) appena si scorre. Sta sempre su fondo scuro, come il footer.
-  A destra "Scrivimi" e il menu a tre linee: apre una tendina con le
-  sezioni (pannello a destra da computer, a tutta larghezza da telefono),
-  si chiude con Esc, toccando fuori o scegliendo una sezione.
+  (`bg-inverse`) appena si scorre, con la barra di lettura. A destra
+  "Scrivimi" e il menu a tre linee (le linee diventano una X); la tendina si
+  chiude con Esc, toccando fuori o scegliendo una sezione. `NAV_LINKS` ha il
+  numero della sezione (`n`).
 - `components/PathCards.jsx`: le 3 strade, una per riga come un indice;
   toccandola si apre la tendina con i dettagli (spunte verdi = colori
   `success` / `successSoft` del tema).
+- `components/MockupShowcase.jsx`: con il mouse sopra una card il telefono
+  si solleva appena.
 - `components/WhatsAppFloat.jsx`: tondo da telefono; da computer compare con
   la scritta solo dopo l'apertura.
 - `components/Reveal.jsx` + `lib/use-in-view.js`: le sezioni compaiono
   salendo quando arrivano sullo schermo. Senza JavaScript (e sul server) il
-  contenuto resta visibile; con "riduci movimento" attivo non si anima niente.
-- `components/Header.jsx`: barra di lettura e voce del menu evidenziata
-  per la sezione in cui ci si trova.
+  contenuto resta visibile. `ImageReveal` in `pages/index.jsx` scopre la
+  foto di Lumière dall'alto con `clip-path`.
 
 ## Creare un nuovo tema
 

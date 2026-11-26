@@ -118,24 +118,25 @@ function PathCard({ path, number, open, onToggle }) {
         aria-expanded={open}
         aria-controls={panelId}
         className="group grid w-full grid-cols-[2.75rem_1fr_auto] items-center gap-x-4 gap-y-2 py-8 text-left sm:grid-cols-[5.5rem_1fr_auto_auto] sm:gap-x-6 sm:py-10"
+        // Niente scala sulla riga intera (è larga): la pressione la mostra il cerchio.
       >
         <span className="text-xs font-semibold tracking-[0.14em] text-accent">{String(number).padStart(2, "0")}</span>
         <span className="min-w-0">
           <span className="block text-sm text-fg-muted">{path.question}</span>
           <span
-            className={`heading mt-2 block text-[clamp(2rem,1.4rem+2.6vw,3.4rem)] text-fg transition-[font-style] group-hover:italic ${open ? "italic" : ""}`}
+            className={`heading mt-2 block text-[clamp(2rem,1.4rem+2.6vw,3.4rem)] text-fg group-hover:italic ${open ? "italic" : ""}`}
           >
             {path.title}
           </span>
           <span className="mt-2 block text-sm font-medium text-fg sm:hidden">{path.from}</span>
         </span>
         <span className="hidden text-right sm:block">
-          <span className="heading block text-2xl text-fg">{path.from}</span>
+          <span className="heading block text-2xl tabular-nums text-fg">{path.from}</span>
           <span className="eyebrow mt-1 block text-fg-muted">{open ? "Chiudi" : "Vedi cosa include"}</span>
         </span>
         <span
           aria-hidden="true"
-          className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full border text-xl font-light transition-colors ${
+          className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full border text-xl font-light transition-[background-color,border-color,color,scale] duration-150 ease-out group-active:scale-90 ${
             open ? "border-fg bg-fg text-bg" : "border-line-strong/30 text-accent group-hover:border-fg"
           }`}
         >
@@ -147,10 +148,17 @@ function PathCard({ path, number, open, onToggle }) {
       <div
         id={panelId}
         inert={!open}
-        className={`grid transition-[grid-template-rows] duration-500 ease-out motion-reduce:transition-none ${open ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}
+        className={`grid ease-out motion-reduce:transition-none ${
+          open ? "grid-rows-[1fr] duration-300" : "grid-rows-[0fr] duration-200"
+        } transition-[grid-template-rows]`}
       >
         <div className="overflow-hidden">
-          <div className="mb-10 border border-line bg-surface p-5 sm:p-8">
+          {/* Il contenuto sfuma e scende di poco mentre la tendina si apre. */}
+          <div
+            className={`mb-10 border border-line bg-surface p-5 transition-[opacity,translate] ease-out sm:p-8 motion-reduce:translate-y-0 ${
+              open ? "translate-y-0 opacity-100 delay-75 duration-300" : "-translate-y-1 opacity-0 duration-150"
+            }`}
+          >
             <p className="mb-6 max-w-2xl text-fg-muted">{path.intro}</p>
             <Details />
           </div>

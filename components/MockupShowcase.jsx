@@ -33,8 +33,8 @@ function Devices({ mockup }) {
         </div>
       </div>
 
-      {/* Telefono */}
-      <div className="absolute bottom-0 right-0 w-[26%] rounded-[1.25rem] bg-inverse p-1 shadow-pop ring-1 ring-inverse-fg/25">
+      {/* Telefono: con il mouse sopra la card si solleva appena. */}
+      <div className="absolute bottom-0 right-0 w-[26%] rounded-[1.25rem] bg-inverse p-1 shadow-pop ring-1 ring-inverse-fg/25 transition-[translate] duration-300 ease-out group-hover:-translate-y-1.5 motion-reduce:translate-y-0!">
         <Image
           src={mockup.mobile}
           alt={`Il sito di ${mockup.name}, da telefono`}
@@ -52,7 +52,7 @@ export default function MockupShowcase({ start = 1 }) {
   return (
     <ul className="grid grid-cols-1 gap-x-12 gap-y-16 md:grid-cols-2">
       {MOCKUPS.map((mockup, index) => (
-        <Reveal as="li" key={mockup.name} delay={(index % 2) * 120} className={`flex min-w-0 flex-col ${index % 2 ? "md:mt-18" : ""}`}>
+        <Reveal as="li" key={mockup.name} delay={(index % 2) * 90} className={`group flex min-w-0 flex-col ${index % 2 ? "md:mt-18" : ""}`}>
           <Devices mockup={mockup} />
 
           <div className="mt-5 grid grid-cols-[auto_1fr] items-baseline gap-x-4 gap-y-1 border-t border-inverse-fg/15 pt-5 sm:grid-cols-[auto_1fr_auto]">
