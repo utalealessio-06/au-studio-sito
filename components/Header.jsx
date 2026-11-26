@@ -2,16 +2,20 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import Logo from "./Logo";
 import WhatsAppIcon from "./WhatsAppIcon";
 import { whatsappUrl } from "../lib/store";
+import { SHOW_CHI_SONO, SHOW_RECENSIONI, num } from "../lib/sections";
 
 // Link alle sezioni della pagina (gli id sono in pages/index.jsx).
-// Il numero è quello della sezione ("03 · Prezzi").
+// Il numero è quello della sezione ("03 · Prezzi"), da lib/sections.js:
+// Recensioni e Chi sono compaiono solo quando hanno contenuto.
 export const NAV_LINKS = [
-  { href: "#prezzi", label: "Prezzi", n: "03" },
-  { href: "#come-funziona", label: "Come funziona", n: "04" },
-  { href: "#lavori", label: "Lavori", n: "05" },
-  { href: "#domande", label: "Domande", n: "06" },
-  { href: "#contatti", label: "Contatti", n: "07" },
-];
+  { href: "#prezzi", label: "Prezzi" },
+  { href: "#come-funziona", label: "Come funziona" },
+  { href: "#lavori", label: "Lavori" },
+  ...(SHOW_RECENSIONI ? [{ href: "#recensioni", label: "Recensioni" }] : []),
+  ...(SHOW_CHI_SONO ? [{ href: "#chi-sono", label: "Chi sono" }] : []),
+  { href: "#domande", label: "Domande" },
+  { href: "#contatti", label: "Contatti" },
+].map((link) => ({ ...link, n: num(link.href.slice(1)) }));
 
 // Tre linee che diventano una X quando il menu è aperto.
 function MenuIcon({ open }) {

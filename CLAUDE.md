@@ -135,11 +135,20 @@ modalità scura. Non c'è più il pulsante in header né lo script in
   `../LISTINO-PREZZI-AU-STUDIO-NUOVO.pdf`. Se cambia il listino si aggiorna
   solo questo file.
 - `public/lavori/`: foto dei lavori realizzati (Lumière Candles).
-- `lib/portfolio.js` + `public/portfolio/*.jpg`: `LIVE_WORKS` sono i siti
-  fatti e già online (SB · Sebastian Balaniuc, sbcontents.com), nella
-  "Prova 1"; `MOCKUPS` sono le Proposte per attività vere (Rumino, Carpe
+- `lib/portfolio.js` + `public/portfolio/*.jpg`: `FEATURED_WORK` è il
+  lavoro in primo piano (SB · Sebastian Balaniuc, sbcontents.com), nella
+  "Prova 1", seguito dalla card di Lumière Candles (`LUMIERE` in
+  `pages/index.jsx`); `MOCKUPS` sono le Proposte per attività vere (Rumino, Carpe
   Diem, L'Amicizia, La Finestra sul Lago), nella "Prova 2". Entrambi
-  mostrati da `components/MockupShowcase.jsx` (prop `items`). Testi e punti
+  mostrati da `components/MockupShowcase.jsx` (prop `items`; `Devices` è
+  esportato per il lavoro in primo piano).
+- `lib/recensioni.js`: le recensioni VERE, testo esatto, con nome, attività,
+  sito, fonte e data. Una sola = grande e centrata; da due in su = griglia.
+- `lib/chi-sono.js`: titolo, paragrafi e fatti della sezione "Chi sono".
+- `lib/sections.js`: quali sezioni compaiono e con che numero. Recensioni e
+  Chi sono compaiono online solo quando hanno contenuto; in anteprima
+  (`npm run dev`) sempre, con un riquadro tratteggiato "Anteprima · non
+  visibile online". Numeri delle sezioni e menu (`NAV_LINKS`) si adattano. Testi e punti
   dei lavori: solo cose che ci sono davvero sul sito, niente inventato. Le immagini sono screenshot dei siti in
   `~/Desktop/LAVORI` (1440×900 da computer, 390×844 da telefono).
   `status: "Proposta"` = anteprima non ancora comprata; quando diventa
@@ -158,7 +167,9 @@ Soluzione, Obiezioni, Call to action). Lo schema è anche in cima a
 | 02 · La soluzione | Soluzione | 3 vantaggi (Ti trovano / Ti scrivono / Ti scelgono), USP "perché me e non un'agenzia", valore condiviso (negozi di quartiere) |
 | 03 · Prezzi | Soluzione | Le 3 strade con i prezzi scritti |
 | 04 · Come funziona | Soluzione | Chiarezza sul post-acquisto: cosa succede, passo per passo, dopo il primo messaggio |
-| 05 · Perché fidarti | Obiezioni | L'obiezione più forte ("non mi conosci") con CPB: Claim, 3 Prove (Lumière online, Proposte fatte prima del pagamento, garanzie reali), Benefit |
+| 05 · Perché fidarti | Obiezioni | L'obiezione più forte ("non mi conosci") con CPB: Claim, 3 Prove (SB e Lumière online, Proposte fatte prima del pagamento, garanzie reali), Benefit |
+| 06 · Recensioni | Obiezioni | Recensioni vere (`lib/recensioni.js`): "è il target a vendere al target" |
+| 07 · Chi sono | Obiezioni | Faccia, nome e storia vera (`lib/chi-sono.js`); online solo quando c'è il testo |
 | Fascia `bg-primary` | CTA | Conseguenza del non agire + scadenza vera del listino |
 | 06 · Domande | Obiezioni | Le altre obiezioni, dalla più forte alla più debole |
 | 07 · Contatti | CTA | CTA profonda ("Fai trovare il tuo negozio") e cosa succede quando si preme |

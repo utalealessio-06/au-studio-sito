@@ -7,7 +7,7 @@ import { whatsappUrl } from "../lib/store";
 // browser e quella da telefono appoggiata sopra. Serve sia per i siti
 // online (`LIVE_WORKS`) sia per le Proposte (`MOCKUPS`).
 
-function Devices({ mockup }) {
+export function Devices({ mockup }) {
   return (
     <div className="relative pb-8 pr-5">
       <div className="overflow-hidden rounded-media border border-line bg-bg">

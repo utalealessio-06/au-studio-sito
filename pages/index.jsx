@@ -1,7 +1,10 @@
 import Head from "next/head";
 import Image from "next/image";
-import MockupShowcase from "../components/MockupShowcase";
-import { LIVE_WORKS, MOCKUPS } from "../lib/portfolio";
+import MockupShowcase, { Devices } from "../components/MockupShowcase";
+import { CHI_SONO } from "../lib/chi-sono";
+import { FEATURED_WORK, MOCKUPS } from "../lib/portfolio";
+import { RECENSIONI, RECENSIONI_IN_ARRIVO } from "../lib/recensioni";
+import { SHOW_CHI_SONO, SHOW_RECENSIONI, num } from "../lib/sections";
 import PathCards from "../components/PathCards";
 import PriceRow from "../components/PriceRow";
 import Reveal from "../components/Reveal";
@@ -409,7 +412,7 @@ export default function HomePage() {
           conseguenza del non agire. */}
       <Split
         id="problema"
-        n="01"
+        n={num("problema")}
         label="Ti riconosci?"
         title={
           <>
@@ -458,7 +461,7 @@ export default function HomePage() {
       <section id="soluzione" className="py-section">
         <div className="page-container">
           <CenterHead
-            n="02"
+            n={num("soluzione")}
             label="La soluzione"
             title={
               <>
@@ -483,7 +486,7 @@ export default function HomePage() {
       </section>
 
       <Split
-        n="02"
+        n={num("soluzione")}
         label="Perché io"
         className="pt-0!"
         title={
@@ -516,7 +519,7 @@ export default function HomePage() {
       {/* ── S · SOLUZIONE (2/3): l'offerta, con i prezzi scritti ────────── */}
       <Split
         id="prezzi"
-        n="03"
+        n={num("prezzi")}
         label="Prezzi"
         title={
           <>
@@ -564,7 +567,7 @@ export default function HomePage() {
       <section id="come-funziona" className="py-section">
         <div className="page-container">
           <CenterHead
-            n="04"
+            n={num("come-funziona")}
             label="Come funziona"
             title={
               <>
@@ -592,7 +595,7 @@ export default function HomePage() {
       <section id="lavori" className="py-section">
         <div className="page-container">
           <CenterHead
-            n="05"
+            n={num("lavori")}
             label="Perché fidarti"
             title={
               <>
@@ -602,55 +605,70 @@ export default function HomePage() {
             intro="Domanda giusta. Non devi farlo sulla parola: ecco tre prove, che puoi verificare da solo. I siti sono online: aprili."
           />
 
-          {/* Prova 1 */}
-          <Reveal className={`${CARD} grid items-center gap-8 p-3 sm:p-4 lg:grid-cols-[7fr_5fr] lg:gap-12`}>
-            <ImageReveal>
-              <a href={LUMIERE.url} target="_blank" rel="noopener noreferrer" className="group relative block overflow-hidden rounded-[max(0px,calc(var(--r-panel)-0.75rem))]">
-                <Image
-                  src={lumierePhoto}
-                  alt="Candela Raspberry Delight di Lumière Candles"
-                  sizes="(min-width: 1024px) 50vw, 100vw"
-                  placeholder="blur"
-                  className="card-zoom aspect-16/11 w-full object-cover"
-                />
-                <span className="absolute left-4 top-4 rounded-chip bg-glass px-3 py-1.5 text-xs text-fg backdrop-blur">
-                  Cliente · Negozio online
-                </span>
-              </a>
-            </ImageReveal>
+          {/* Prova 1: il lavoro in primo piano (lib/portfolio.js → FEATURED_WORK) */}
+          <Reveal className={`group ${CARD} grid items-center gap-6 p-3 sm:p-4 lg:grid-cols-[7fr_5fr] lg:gap-12`}>
+            <div className="p-2 sm:p-4">
+              <Devices mockup={FEATURED_WORK} />
+            </div>
             <div className="px-4 pb-6 lg:py-6 lg:pr-8">
               <p className="eyebrow text-fg-subtle">Prova 1 · Lavori veri, già online</p>
-              <h3 className="heading-2 mt-4 text-fg">{LUMIERE.name}</h3>
-              <p className="mt-4 text-fg-muted">{LUMIERE.text}</p>
+              <h3 className="heading-2 mt-4 text-fg">{FEATURED_WORK.name}</h3>
+              <p className="mt-2 text-sm text-fg-subtle">{FEATURED_WORK.kind}</p>
+              <p className="mt-4 text-fg-muted">{FEATURED_WORK.text}</p>
               <ul className="mt-6 space-y-2">
-                {LUMIERE.done.map((item) => (
+                {FEATURED_WORK.points.map((item) => (
                   <li key={item} className="flex gap-3 text-sm text-fg-muted">
                     <span aria-hidden="true" className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
                     {item}
                   </li>
                 ))}
               </ul>
-              <a href={LUMIERE.url} target="_blank" rel="noopener noreferrer" className="btn-secondary btn-sm mt-8">
-                Apri {LUMIERE.domain}
+              <a href={FEATURED_WORK.url} target="_blank" rel="noopener noreferrer" className="btn-secondary btn-sm mt-8">
+                Apri {FEATURED_WORK.domain}
               </a>
             </div>
           </Reveal>
 
-          {/* Prova 1, continua: gli altri siti online (lib/portfolio.js → LIVE_WORKS) */}
-          <div className="mt-grid">
-            <MockupShowcase items={LIVE_WORKS} start={2}>
-              {LIVE_WORKS.length % 2 === 1 && (
-                <Reveal as="li" delay={90} className="flex flex-col justify-end rounded-panel border border-dashed border-line-strong p-8 sm:p-10">
-                  <p className="eyebrow text-fg-subtle">Il prossimo</p>
-                  <p className="heading-2 mt-4 text-fg">
-                    Può essere <em className="text-accent">il tuo negozio.</em>
-                  </p>
-                  <p className="mt-3 text-fg-muted">Scrivimi: ti preparo un’idea per il tuo sito e il preventivo, gratis.</p>
-                  <WhatsAppButton className="btn-primary btn-sm mt-6 self-start">Scrivimi su WhatsApp</WhatsAppButton>
-                </Reveal>
-              )}
-            </MockupShowcase>
-          </div>
+          {/* Prova 1, continua: Lumière Candles e l'invito */}
+          <ul className="mt-grid grid gap-grid md:grid-cols-2">
+            <Reveal as="li" className={`group ${CARD} flex flex-col p-3 sm:p-4`}>
+              <ImageReveal>
+                <a href={LUMIERE.url} target="_blank" rel="noopener noreferrer" className="relative block overflow-hidden rounded-media">
+                  <Image
+                    src={lumierePhoto}
+                    alt="Candela Raspberry Delight di Lumière Candles"
+                    sizes="(min-width: 768px) 45vw, 100vw"
+                    placeholder="blur"
+                    className="card-zoom aspect-16/10 w-full object-cover"
+                  />
+                </a>
+              </ImageReveal>
+              <div className="flex flex-1 flex-col px-3 pb-3 pt-5 sm:px-4">
+                <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
+                  <h3 className="heading text-[clamp(1.5rem,1.2rem+1vw,2rem)] text-fg">{LUMIERE.name}</h3>
+                  <span className="rounded-chip bg-accent-soft px-3 py-1 text-xs tabular-nums text-fg-muted">02 · Cliente</span>
+                </div>
+                <p className="mt-1 text-sm text-fg-subtle">Negozio online</p>
+                <p className="mt-4 text-fg-muted">{LUMIERE.text}</p>
+                <a
+                  href={LUMIERE.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-auto self-start pt-6 text-sm font-medium text-fg underline decoration-line-strong underline-offset-4 transition-colors hover:decoration-fg"
+                >
+                  Apri {LUMIERE.domain} <span aria-hidden="true">↗</span>
+                </a>
+              </div>
+            </Reveal>
+            <Reveal as="li" delay={90} className="flex flex-col justify-end rounded-panel border border-dashed border-line-strong p-8 sm:p-10">
+              <p className="eyebrow text-fg-subtle">Il prossimo</p>
+              <p className="heading-2 mt-4 text-fg">
+                Può essere <em className="text-accent">il tuo negozio.</em>
+              </p>
+              <p className="mt-3 text-fg-muted">Scrivimi: ti preparo un’idea per il tuo sito e il preventivo, gratis.</p>
+              <WhatsAppButton className="btn-primary btn-sm mt-6 self-start">Scrivimi su WhatsApp</WhatsAppButton>
+            </Reveal>
+          </ul>
 
           {/* Prova 2 */}
           <Reveal className="mb-8 mt-section-tight grid items-end gap-4 lg:grid-cols-[7fr_5fr] lg:gap-12">
@@ -667,7 +685,7 @@ export default function HomePage() {
             </p>
           </Reveal>
 
-          <MockupShowcase items={MOCKUPS} start={2 + LIVE_WORKS.length} />
+          <MockupShowcase items={MOCKUPS} start={3} />
 
           {/* Prova 3 */}
           <Reveal as="p" className="eyebrow mt-section-tight text-fg-subtle">
@@ -692,6 +710,124 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ── O · OBIEZIONI: recensioni vere (lib/recensioni.js) ────────────
+          "Non è il copywriter a vendere al target, è il target a vendere al
+          target." Solo messaggi veri, con nome, attività e sito. */}
+      {SHOW_RECENSIONI && (
+        <section id="recensioni" className="py-section">
+          <div className="page-container">
+            <CenterHead
+              n={num("recensioni")}
+              label="Recensioni"
+              title={
+                <>
+                  Non lo dico io. <em className="text-accent">Lo dicono loro.</em>
+                </>
+              }
+              intro="Messaggi veri, con nome, attività e sito: puoi controllare chi li ha scritti."
+            />
+
+            {/* Una sola recensione: grande e centrata. Da due in su: griglia. */}
+            <ul className={RECENSIONI.length === 1 ? "mx-auto max-w-3xl" : "grid gap-3 md:grid-cols-2 lg:grid-cols-3"}>
+              {RECENSIONI.map((r, i) => (
+                <Reveal
+                  as="li"
+                  key={r.nome + i}
+                  delay={i * 80}
+                  className={`${CARD} flex flex-col ${RECENSIONI.length === 1 ? "p-8 sm:p-12" : "p-8"}`}
+                >
+                  <figure className="flex flex-1 flex-col">
+                    <blockquote className={`flex-1 text-fg ${RECENSIONI.length === 1 ? "heading-2" : "heading-3"}`}>
+                      <span aria-hidden="true" className="heading mb-3 block text-5xl leading-none text-accent">“</span>
+                      {r.testo}
+                    </blockquote>
+                    <figcaption className="mt-8 border-t border-line pt-5">
+                      <p className="font-medium text-fg">{r.nome}</p>
+                      <p className="text-sm text-fg-muted">{r.attivita}</p>
+                      <p className="mt-2 flex flex-wrap gap-x-3 text-xs text-fg-subtle">
+                        {r.fonte && <span>Via {r.fonte}</span>}
+                        {r.data && <span>{r.data}</span>}
+                        {r.sito && (
+                          <a href={r.sito} target="_blank" rel="noopener noreferrer" className="underline underline-offset-4 hover:text-fg">
+                            {r.sito.replace(/^https?:\/\//, "")}
+                          </a>
+                        )}
+                      </p>
+                    </figcaption>
+                  </figure>
+                </Reveal>
+              ))}
+
+              {/* Segnaposto: solo in anteprima, finché non c'è nessuna recensione. */}
+              {RECENSIONI.length === 0 &&
+                RECENSIONI_IN_ARRIVO.map((who) => (
+                  <li key={who} className="rounded-panel border border-dashed border-line-strong p-8 text-fg-muted">
+                    <p className="eyebrow text-fg-subtle">Anteprima · non visibile online</p>
+                    <p className="mt-4">
+                      Qui comparirà la recensione di <strong className="font-medium text-fg">{who}</strong>, con il suo testo
+                      esatto. Si aggiunge in <code className="text-fg">lib/recensioni.js</code>.
+                    </p>
+                  </li>
+                ))}
+            </ul>
+          </div>
+        </section>
+      )}
+
+      {/* ── O · OBIEZIONI: chi sono (lib/chi-sono.js) ─────────────────────
+          Risponde a "non ti conosco": una faccia, un nome, una storia vera. */}
+      {SHOW_CHI_SONO && (
+        <Split
+          id="chi-sono"
+          n={num("chi-sono")}
+          label="Chi sono"
+          title={CHI_SONO.titolo || <>Piacere, <em className="text-accent">sono {OWNER_NAME.split(" ")[0]}.</em></>}
+        >
+          <Reveal className={`${CARD} grid gap-6 p-3 sm:grid-cols-[2fr_3fr] sm:p-4`}>
+            <ImageReveal>
+              <Image
+                src={ownerPhoto}
+                alt={`${OWNER_NAME}, ${STORE_NAME}`}
+                sizes="(min-width: 1024px) 22vw, (min-width: 640px) 35vw, 90vw"
+                className="aspect-4/5 h-auto w-full rounded-media object-cover object-[50%_20%]"
+              />
+            </ImageReveal>
+            <div className="flex flex-col justify-center px-3 pb-4 sm:py-6 sm:pr-6">
+              {CHI_SONO.paragrafi.length > 0 ? (
+                <div className="space-y-4 text-lg leading-relaxed text-fg-muted">
+                  {CHI_SONO.paragrafi.map((par) => (
+                    <p key={par}>{par}</p>
+                  ))}
+                </div>
+              ) : (
+                <div className="rounded-card border border-dashed border-line-strong p-6 text-fg-muted">
+                  <p className="eyebrow text-fg-subtle">Anteprima · non visibile online</p>
+                  <p className="mt-3">
+                    Qui va il tuo racconto, in prima persona: chi sei, perché fai siti per i negozi, come lavori. Si
+                    scrive in <code className="text-fg">lib/chi-sono.js</code>.
+                  </p>
+                </div>
+              )}
+              <p className="heading mt-6 text-xl text-fg">{OWNER_NAME}</p>
+              <p className="text-sm text-fg-subtle">
+                {STORE_NAME} · {CITY}
+              </p>
+            </div>
+          </Reveal>
+
+          {CHI_SONO.fatti.length > 0 && (
+            <ul className="mt-3 grid gap-3 sm:grid-cols-3">
+              {CHI_SONO.fatti.map((f, i) => (
+                <Reveal as="li" key={f.label} delay={i * 70} className={`${CARD} p-6`}>
+                  <p className="text-xs text-fg-subtle">{f.label}</p>
+                  <p className="heading-3 mt-2 text-fg">{f.value}</p>
+                </Reveal>
+              ))}
+            </ul>
+          )}
+        </Split>
+      )}
+
       {/* ── C · CTA a metà pagina: la pillola chiara della palette ─────── */}
       <section className="px-3 sm:px-5">
         <Reveal className="relative mx-auto max-w-[var(--sp-container)] overflow-hidden rounded-panel bg-primary px-6 py-section text-center text-primary-fg">
@@ -715,7 +851,7 @@ export default function HomePage() {
       {/* ── O · OBIEZIONI: le altre, dalla più forte alla più debole ────── */}
       <Split
         id="domande"
-        n="06"
+        n={num("domande")}
         label="Domande"
         title={
           <>
@@ -749,7 +885,7 @@ export default function HomePage() {
       <section id="contatti" className="px-3 pb-section sm:px-5">
         <Reveal className="glow mx-auto grid max-w-[var(--sp-container)] items-end gap-12 rounded-panel border border-line p-8 sm:p-12 lg:grid-cols-[7fr_5fr] lg:gap-16 lg:p-16">
           <div>
-            <Chip n="07">Contatti</Chip>
+            <Chip n={num("contatti")}>Contatti</Chip>
             <h2 className="heading-display mt-6 text-fg">
               Fai trovare <em className="text-accent">il tuo negozio.</em>
             </h2>
