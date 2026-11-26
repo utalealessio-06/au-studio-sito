@@ -225,8 +225,11 @@ Tailwind: `ease-out` = `cubic-bezier(0.23, 1, 0.32, 1)`, `ease-in-out` =
   studio gigante, appena visibile.
 - `components/WhatsAppFloat.jsx`: tondo da telefono; da computer compare con
   la scritta solo dopo l'apertura.
-- `components/Reveal.jsx` + `lib/use-in-view.js`: le sezioni compaiono
-  salendo quando arrivano sullo schermo. Senza JavaScript (e sul server) il
+- `components/Reveal.jsx` + `lib/use-in-view.js` (opzione `replay`): le
+  sezioni compaiono salendo quando arrivano sullo schermo; scorrendo verso
+  l'alto, quando escono dal basso svaniscono (300 ms) e ricompaiono tornando
+  giù (650 ms). Quelle uscite dall'alto restano visibili. Stesso
+  comportamento per i numeri di "Come funziona" e la foto di Lumière. Senza JavaScript (e sul server) il
   contenuto resta visibile. `ImageReveal` in `pages/index.jsx` scopre la
   foto di Lumière dall'alto con `clip-path`.
 

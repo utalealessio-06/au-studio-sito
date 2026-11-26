@@ -272,9 +272,9 @@ function CenterHead({ n, label, title, intro }) {
 // Un passo di "Come funziona": quando la card arriva sullo schermo il
 // numero si accende, un passo dopo l'altro (scaglionamento breve).
 function Step({ step, number }) {
-  const [ref, inView] = useInView({ rootMargin: "0px 0px -15% 0px", once: true });
+  const [ref, inView] = useInView({ rootMargin: "0px 0px -15% 0px", replay: true });
   const lit = inView !== false;
-  const delay = { transitionDelay: `${(number - 1) * 110}ms` };
+  const delay = lit ? { transitionDelay: `${(number - 1) * 110}ms` } : undefined;
 
   return (
     <li ref={ref} className={`${CARD} p-7`}>
@@ -292,16 +292,17 @@ function Step({ step, number }) {
   );
 }
 
-// Foto che si scopre dall'alto in basso quando arriva sullo schermo.
+// Foto che si scopre dall'alto in basso quando arriva sullo schermo (e si
+// richiude, più in fretta, se esce dal basso scorrendo verso l'alto).
 function ImageReveal({ className = "", children }) {
-  const [ref, inView] = useInView({ rootMargin: "0px 0px -10% 0px", once: true });
+  const [ref, inView] = useInView({ rootMargin: "0px 0px -10% 0px", replay: true });
   const hidden = inView === false;
 
   return (
     <div
       ref={ref}
-      className={`transition-[clip-path] duration-1000 ease-in-out motion-reduce:transition-none ${
-        hidden ? "[clip-path:inset(0_0_100%_0)] motion-reduce:[clip-path:none]" : "[clip-path:inset(0_0_0_0)]"
+      className={`transition-[clip-path] ease-in-out motion-reduce:transition-none ${
+        hidden ? "duration-400 [clip-path:inset(0_0_100%_0)] motion-reduce:[clip-path:none]" : "duration-1000 [clip-path:inset(0_0_0_0)]"
       } ${className}`}
     >
       {children}
