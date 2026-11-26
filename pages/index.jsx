@@ -2,7 +2,7 @@ import Head from "next/head";
 import Image from "next/image";
 import MockupShowcase, { Devices } from "../components/MockupShowcase";
 import { CHI_SONO } from "../lib/chi-sono";
-import { FEATURED_WORK, MOCKUPS } from "../lib/portfolio";
+import { FEATURED_WORKS, MOCKUPS } from "../lib/portfolio";
 import { RECENSIONI, RECENSIONI_IN_ARRIVO } from "../lib/recensioni";
 import { SHOW_CHI_SONO, SHOW_RECENSIONI, num } from "../lib/sections";
 import PathCards from "../components/PathCards";
@@ -22,7 +22,6 @@ import {
   WHATSAPP_NUMBER,
 } from "../lib/store";
 import ownerPhoto from "../public/alessio-utale.jpg";
-import lumierePhoto from "../public/lavori/lumiere-candles.jpg";
 import { whatsappUrl } from "../lib/store";
 import { useInView } from "../lib/use-in-view";
 
@@ -118,19 +117,6 @@ const STEPS = [
     text: "Da quel giorno chi ti cerca ti trova, a qualsiasi ora. Con il sito vetrina gli aggiornamenti li faccio io.",
   },
 ];
-
-// Obiezioni: Lumière Candles, la prova n. 1 (un lavoro vero, già online).
-const LUMIERE = {
-  name: "Lumière Candles",
-  url: "https://lumierecandle.net",
-  domain: "lumierecandle.net",
-  text: "Candele profumate fatte a mano, che adesso si ordinano in tre tocchi dal telefono, a qualsiasi ora. Puoi aprire il sito adesso e provarlo tu.",
-  done: [
-    "Catalogo con foto, prezzi e varianti",
-    "Ordini e pagamenti online, pensati prima di tutto per il telefono",
-    "Prodotti e prezzi aggiornabili in autonomia, senza chiamare nessuno",
-  ],
-};
 
 // Obiezioni: la prova n. 3, le garanzie (tutte reali, dal listino).
 const GUARANTEES = [
@@ -310,6 +296,40 @@ function ImageReveal({ className = "", children }) {
     >
       {children}
     </div>
+  );
+}
+
+// Un lavoro in primo piano: schermate da computer e telefono da un lato,
+// testo dall'altro (`reverse` le scambia, per alternare).
+function FeaturedWork({ work, number, reverse = false }) {
+  return (
+    <Reveal className={`group ${CARD} grid items-center gap-6 p-3 sm:p-4 lg:gap-12 ${reverse ? "lg:grid-cols-[5fr_7fr]" : "lg:grid-cols-[7fr_5fr]"}`}>
+      <div className={`p-2 sm:p-4 ${reverse ? "lg:order-2" : ""}`}>
+        <Devices mockup={work} />
+      </div>
+      <div className={`px-4 pb-6 lg:py-6 ${reverse ? "lg:pl-8" : "lg:pr-8"}`}>
+        <div className="flex flex-wrap items-center gap-3">
+          <p className="eyebrow text-fg-subtle">Prova 1 · Lavori veri, già online</p>
+          <span className="rounded-chip bg-accent-soft px-3 py-1 text-xs tabular-nums text-fg-muted">
+            {String(number).padStart(2, "0")} · {work.status}
+          </span>
+        </div>
+        <h3 className="heading-2 mt-4 text-fg">{work.name}</h3>
+        <p className="mt-2 text-sm text-fg-subtle">{work.kind}</p>
+        <p className="mt-4 text-fg-muted">{work.text}</p>
+        <ul className="mt-6 space-y-2">
+          {work.points.map((item) => (
+            <li key={item} className="flex gap-3 text-sm text-fg-muted">
+              <span aria-hidden="true" className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
+              {item}
+            </li>
+          ))}
+        </ul>
+        <a href={work.url} target="_blank" rel="noopener noreferrer" className="btn-secondary btn-sm mt-8">
+          Apri {work.domain}
+        </a>
+      </div>
+    </Reveal>
   );
 }
 
@@ -605,70 +625,25 @@ export default function HomePage() {
             intro="Domanda giusta. Non devi farlo sulla parola: ecco tre prove, che puoi verificare da solo. I siti sono online: aprili."
           />
 
-          {/* Prova 1: il lavoro in primo piano (lib/portfolio.js → FEATURED_WORK) */}
-          <Reveal className={`group ${CARD} grid items-center gap-6 p-3 sm:p-4 lg:grid-cols-[7fr_5fr] lg:gap-12`}>
-            <div className="p-2 sm:p-4">
-              <Devices mockup={FEATURED_WORK} />
-            </div>
-            <div className="px-4 pb-6 lg:py-6 lg:pr-8">
-              <p className="eyebrow text-fg-subtle">Prova 1 · Lavori veri, già online</p>
-              <h3 className="heading-2 mt-4 text-fg">{FEATURED_WORK.name}</h3>
-              <p className="mt-2 text-sm text-fg-subtle">{FEATURED_WORK.kind}</p>
-              <p className="mt-4 text-fg-muted">{FEATURED_WORK.text}</p>
-              <ul className="mt-6 space-y-2">
-                {FEATURED_WORK.points.map((item) => (
-                  <li key={item} className="flex gap-3 text-sm text-fg-muted">
-                    <span aria-hidden="true" className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-              <a href={FEATURED_WORK.url} target="_blank" rel="noopener noreferrer" className="btn-secondary btn-sm mt-8">
-                Apri {FEATURED_WORK.domain}
-              </a>
-            </div>
-          </Reveal>
+          {/* Prova 1: i lavori in primo piano (lib/portfolio.js → FEATURED_WORKS),
+              con le schermate da computer e da telefono; si alternano a
+              sinistra e a destra. */}
+          <div className="space-y-grid">
+            {FEATURED_WORKS.map((work, i) => (
+              <FeaturedWork key={work.name} work={work} number={i + 1} reverse={i % 2 === 1} />
+            ))}
 
-          {/* Prova 1, continua: Lumière Candles e l'invito */}
-          <ul className="mt-grid grid gap-grid md:grid-cols-2">
-            <Reveal as="li" className={`group ${CARD} flex flex-col p-3 sm:p-4`}>
-              <ImageReveal>
-                <a href={LUMIERE.url} target="_blank" rel="noopener noreferrer" className="relative block overflow-hidden rounded-media">
-                  <Image
-                    src={lumierePhoto}
-                    alt="Candela Raspberry Delight di Lumière Candles"
-                    sizes="(min-width: 768px) 45vw, 100vw"
-                    placeholder="blur"
-                    className="card-zoom aspect-16/10 w-full object-cover"
-                  />
-                </a>
-              </ImageReveal>
-              <div className="flex flex-1 flex-col px-3 pb-3 pt-5 sm:px-4">
-                <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
-                  <h3 className="heading text-[clamp(1.5rem,1.2rem+1vw,2rem)] text-fg">{LUMIERE.name}</h3>
-                  <span className="rounded-chip bg-accent-soft px-3 py-1 text-xs tabular-nums text-fg-muted">02 · Cliente</span>
-                </div>
-                <p className="mt-1 text-sm text-fg-subtle">Negozio online</p>
-                <p className="mt-4 text-fg-muted">{LUMIERE.text}</p>
-                <a
-                  href={LUMIERE.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-auto self-start pt-6 text-sm font-medium text-fg underline decoration-line-strong underline-offset-4 transition-colors hover:decoration-fg"
-                >
-                  Apri {LUMIERE.domain} <span aria-hidden="true">↗</span>
-                </a>
+            <Reveal className="flex flex-col gap-5 rounded-panel border border-dashed border-line-strong p-8 sm:flex-row sm:items-center sm:justify-between sm:p-10">
+              <div>
+                <p className="eyebrow text-fg-subtle">Il prossimo</p>
+                <p className="heading-2 mt-3 text-fg">
+                  Può essere <em className="text-accent">il tuo negozio.</em>
+                </p>
+                <p className="mt-2 text-fg-muted">Scrivimi: ti preparo un’idea per il tuo sito e il preventivo, gratis.</p>
               </div>
+              <WhatsAppButton className="btn-primary w-full shrink-0 sm:w-auto">Scrivimi su WhatsApp</WhatsAppButton>
             </Reveal>
-            <Reveal as="li" delay={90} className="flex flex-col justify-end rounded-panel border border-dashed border-line-strong p-8 sm:p-10">
-              <p className="eyebrow text-fg-subtle">Il prossimo</p>
-              <p className="heading-2 mt-4 text-fg">
-                Può essere <em className="text-accent">il tuo negozio.</em>
-              </p>
-              <p className="mt-3 text-fg-muted">Scrivimi: ti preparo un’idea per il tuo sito e il preventivo, gratis.</p>
-              <WhatsAppButton className="btn-primary btn-sm mt-6 self-start">Scrivimi su WhatsApp</WhatsAppButton>
-            </Reveal>
-          </ul>
+          </div>
 
           {/* Prova 2 */}
           <Reveal className="mb-8 mt-section-tight grid items-end gap-4 lg:grid-cols-[7fr_5fr] lg:gap-12">
@@ -685,7 +660,7 @@ export default function HomePage() {
             </p>
           </Reveal>
 
-          <MockupShowcase items={MOCKUPS} start={3} />
+          <MockupShowcase items={MOCKUPS} start={FEATURED_WORKS.length + 1} />
 
           {/* Prova 3 */}
           <Reveal as="p" className="eyebrow mt-section-tight text-fg-subtle">
