@@ -106,7 +106,10 @@ function ScrollProgress() {
     };
   }, []);
 
-  return <div ref={bar} aria-hidden="true" className="absolute inset-x-0 -bottom-px h-0.5 origin-left scale-x-0 bg-inverse-accent" />;
+  // La scala iniziale è nello style e non in una classe: `scale-x-0` di
+  // Tailwind usa la proprietà `scale`, che si moltiplica con `transform` e
+  // terrebbe la barra sempre a zero.
+  return <div ref={bar} aria-hidden="true" style={{ transform: "scaleX(0)" }} className="absolute inset-0 origin-left bg-accent" />;
 }
 
 export default function Header() {
@@ -123,88 +126,85 @@ export default function Header() {
   const menuRef = useRef(null);
   const activeSection = useActiveSection();
   const scrolled = useScrolled();
-  const solid = scrolled || menuOpen;
   useCloseOnOutside(menuRef, menuOpen, closeMenu);
 
+  // Una capsula sospesa sopra la pagina: si fa più compatta appena si scorre.
   return (
-    <header
-      className={`fixed inset-x-0 top-0 z-40 text-inverse-fg transition-[background-color,border-color] duration-200 ${
-        solid ? "border-b border-inverse-fg/15 bg-inverse" : "border-b border-transparent"
-      }`}
-    >
-      {scrolled && <ScrollProgress />}
-      <div
-        className={`page-container flex items-center justify-between gap-6 transition-[height] duration-200 ease-out ${
-          scrolled ? "h-[4.75rem] lg:h-[5.25rem]" : "h-[4.75rem] lg:h-[6.25rem]"
-        }`}
-      >
-        <Logo />
+    <header className="fixed inset-x-0 top-0 z-40 px-3 pt-3 sm:px-5 sm:pt-4">
+      <div ref={menuRef} className="relative mx-auto max-w-[var(--sp-container)]">
+        <div
+          className={`relative flex items-center justify-between gap-4 rounded-full border border-line bg-bg/75 pl-5 pr-2 shadow-card backdrop-blur-xl transition-[height,background-color] duration-200 ease-out sm:pl-7 ${
+            scrolled ? "h-14 bg-bg/90" : "h-16"
+          }`}
+        >
+          {scrolled && (
+            <span aria-hidden="true" className="absolute inset-x-8 bottom-0 h-px overflow-hidden">
+              <ScrollProgress />
+            </span>
+          )}
+          <Logo />
 
-        <div ref={menuRef} className="relative flex items-center gap-3 sm:gap-5">
+          <div className="flex items-center gap-1.5">
+            <a
+              href={whatsappUrl()}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-primary btn-plain btn-sm hidden sm:inline-flex"
+            >
+              <WhatsAppIcon />
+              Scrivimi
+            </a>
+
+            <button
+              type="button"
+              onClick={toggleMenu}
+              aria-expanded={menuOpen}
+              aria-controls="site-menu"
+              className="flex h-11 items-center gap-3 rounded-full px-4 text-sm font-medium text-fg transition-[background-color,scale] duration-150 ease-out hover:bg-surface active:scale-[0.97]"
+            >
+              <span className="sr-only sm:not-sr-only">{menuOpen ? "Chiudi" : "Menu"}</span>
+              <MenuIcon open={menuOpen} />
+            </button>
+          </div>
+        </div>
+
+        {/* Tendina: si apre dal bottone (in alto a destra), non dal centro.
+            Entra in 200 ms, esce in 150 ms; con Esc sparisce subito. */}
+        <nav
+          id="site-menu"
+          aria-label="Sezioni della pagina"
+          inert={!menuOpen}
+          className={`absolute right-0 top-[calc(100%+0.5rem)] w-full origin-top-right rounded-panel border border-line bg-surface p-2 shadow-pop ease-out motion-reduce:scale-100! motion-reduce:translate-y-0! sm:w-80 ${
+            instant ? "duration-0" : menuOpen ? "duration-200" : "duration-150"
+          } transition-[opacity,scale,translate] ${
+            menuOpen ? "translate-y-0 scale-100 opacity-100" : "pointer-events-none -translate-y-1 scale-[0.97] opacity-0"
+          }`}
+        >
+          {NAV_LINKS.map((link) => (
+            <a
+              key={link.href}
+              href={link.href}
+              onClick={() => closeMenu()}
+              aria-current={activeSection === link.href ? "true" : undefined}
+              className={`flex items-center justify-between rounded-[calc(var(--r-panel)-0.5rem)] px-5 py-3.5 text-lg transition-colors duration-150 hover:bg-accent-soft ${
+                activeSection === link.href ? "bg-accent-soft text-fg" : "text-fg-muted hover:text-fg"
+              }`}
+            >
+              {link.label}
+              <span className="text-xs tabular-nums text-fg-subtle">{link.n}</span>
+            </a>
+          ))}
           <a
             href={whatsappUrl()}
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-primary btn-plain btn-sm hidden sm:inline-flex"
+            onClick={() => closeMenu()}
+            className="btn-primary mt-2 w-full sm:hidden"
           >
-            <WhatsAppIcon />
-            Scrivimi
+            <WhatsAppIcon className="h-5 w-5" />
+            Scrivimi su WhatsApp
           </a>
-
-          <button
-            type="button"
-            onClick={toggleMenu}
-            aria-expanded={menuOpen}
-            aria-controls="site-menu"
-            className="flex items-center gap-3 py-3 pl-2 text-xs font-semibold uppercase tracking-[0.18em] transition-[color,scale] duration-150 hover:text-inverse-accent active:scale-[0.97]"
-          >
-            <span className="sr-only sm:not-sr-only">{menuOpen ? "Chiudi" : "Menu"}</span>
-            <MenuIcon open={menuOpen} />
-          </button>
-
-          {/* Tendina: si apre dal bottone (angolo in alto a destra), non dal
-              centro. Entra in 200 ms, esce più in fretta (150 ms).
-              A tutta larghezza da telefono, un pannello a destra da computer. */}
-          <nav
-            id="site-menu"
-            aria-label="Sezioni della pagina"
-            inert={!menuOpen}
-            className={`fixed inset-x-0 top-[4.75rem] origin-top border-y border-inverse-fg/15 bg-inverse ease-out motion-reduce:scale-100! motion-reduce:translate-y-0! sm:absolute sm:inset-x-auto sm:right-0 sm:top-[calc(100%+0.75rem)] sm:w-80 sm:origin-top-right sm:border sm:shadow-pop ${
-              instant ? "duration-0" : menuOpen ? "duration-200" : "duration-150"
-            } transition-[opacity,scale,translate] ${
-              menuOpen ? "translate-y-0 scale-100 opacity-100" : "pointer-events-none -translate-y-1 scale-[0.97] opacity-0"
-            }`}
-          >
-            <div className="page-container flex flex-col pb-6 pt-2 sm:px-6!">
-              {NAV_LINKS.map((link) => (
-                <a
-                  key={link.href}
-                  href={link.href}
-                  onClick={() => closeMenu()}
-                  aria-current={activeSection === link.href ? "true" : undefined}
-                  className={`flex items-baseline gap-4 border-b border-inverse-fg/15 py-4 font-heading text-3xl transition-colors duration-150 hover:text-inverse-accent ${
-                    activeSection === link.href ? "italic text-inverse-accent" : ""
-                  }`}
-                >
-                  <span className="font-body text-[0.7rem] font-semibold not-italic tabular-nums tracking-[0.14em] text-inverse-accent">
-                    {link.n}
-                  </span>
-                  {link.label}
-                </a>
-              ))}
-              <a
-                href={whatsappUrl()}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => closeMenu()}
-                className="btn-primary mt-6 w-full sm:hidden"
-              >
-                <WhatsAppIcon className="h-5 w-5" />
-                Scrivimi su WhatsApp
-              </a>
-            </div>
-          </nav>
-        </div>
+        </nav>
       </div>
     </header>
   );

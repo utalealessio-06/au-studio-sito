@@ -2,6 +2,8 @@
 //  TEMA DEL SITO
 //  Per cambiare tema modifica SOLO il nome del file nella riga qui sotto.
 //  Temi disponibili nella cartella themes/:
+//    avorio
+//    ardesia
 //    grigio
 //    editoriale
 //    au-studio
@@ -12,4 +14,4 @@
 //  Come funzionano e come crearne uno nuovo: vedi CLAUDE.md.
 // ─────────────────────────────────────────────────────────────────────────
 
-export { default } from "./themes/grigio";
+export { default } from "./themes/avorio";

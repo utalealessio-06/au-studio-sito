@@ -3,8 +3,8 @@ import PriceRow from "./PriceRow";
 import WhatsAppButton from "./WhatsAppButton";
 import { CLIENTI, SHOPIFY, VETRINA } from "../lib/listino";
 
-// Le 3 strade, una per riga come un indice: numero, titolo grande e prezzo.
-// Toccando una riga si apre la tendina con tutti i dettagli.
+// Le 3 strade, una card per strada: numero, titolo e prezzo.
+// Toccando una card si apre la tendina con tutti i dettagli.
 
 function Check() {
   return (
@@ -32,14 +32,14 @@ function CheckList({ items, className = "" }) {
 function VetrinaDetails() {
   return (
     <div className="grid gap-8 md:grid-cols-2">
-      <div className="rounded-panel bg-inverse p-6 text-inverse-fg">
+      <div className="rounded-card bg-accent-soft p-6 text-fg sm:p-8">
         <p>
-          <span className="heading text-5xl">{VETRINA.price}</span>{" "}
-          <span className="heading text-xl text-inverse-muted">{VETRINA.unit}</span>
+          <span className="heading text-5xl tabular-nums">{VETRINA.price}</span>{" "}
+          <span className="heading text-xl text-fg-muted">{VETRINA.unit}</span>
         </p>
-        <p className="mt-2 text-sm text-inverse-muted">{VETRINA.setup}</p>
-        <p className="mt-5 border-l-2 border-accent pl-4 text-sm text-inverse-muted">{VETRINA.terms}</p>
-        <WhatsAppButton className="btn-inverse mt-6 w-full sm:w-auto">Voglio il sito vetrina</WhatsAppButton>
+        <p className="mt-2 text-sm text-fg-muted">{VETRINA.setup}</p>
+        <p className="mt-5 border-l-2 border-accent pl-4 text-sm text-fg-muted">{VETRINA.terms}</p>
+        <WhatsAppButton className="btn-primary mt-6 w-full sm:w-auto">Voglio il sito vetrina</WhatsAppButton>
       </div>
       <CheckList items={VETRINA.features} className="self-center" />
       <div className="flex flex-col gap-3 rounded-card border border-dashed border-line-strong/40 p-5 sm:flex-row sm:items-center sm:justify-between md:col-span-2">
@@ -111,36 +111,37 @@ function PathCard({ path, number, open, onToggle }) {
   const { Details } = path;
 
   return (
-    <li id={path.id} className="scroll-mt-28 border-b border-line">
+    <li
+      id={path.id}
+      className={`scroll-mt-28 rounded-panel border bg-surface shadow-card transition-[border-color] duration-200 ${open ? "border-line-strong" : "border-line"}`}
+    >
       <button
         type="button"
         onClick={onToggle}
         aria-expanded={open}
         aria-controls={panelId}
-        className="group grid w-full grid-cols-[2.75rem_1fr_auto] items-center gap-x-4 gap-y-2 py-8 text-left sm:grid-cols-[5.5rem_1fr_auto_auto] sm:gap-x-6 sm:py-10"
-        // Niente scala sulla riga intera (è larga): la pressione la mostra il cerchio.
+        className="group grid w-full grid-cols-[1fr_auto] items-center gap-x-4 gap-y-3 p-6 text-left sm:grid-cols-[auto_1fr_auto_auto] sm:gap-x-6 sm:p-8"
       >
-        <span className="text-xs font-semibold tracking-[0.14em] text-accent">{String(number).padStart(2, "0")}</span>
+        <span className="hidden h-12 w-12 items-center justify-center rounded-full bg-accent-soft text-sm font-medium tabular-nums text-fg sm:flex">
+          {String(number).padStart(2, "0")}
+        </span>
         <span className="min-w-0">
           <span className="block text-sm text-fg-muted">{path.question}</span>
-          <span
-            className={`heading mt-2 block text-[clamp(2rem,1.4rem+2.6vw,3.4rem)] text-fg group-hover:italic ${open ? "italic" : ""}`}
-          >
-            {path.title}
-          </span>
+          <span className="heading mt-1.5 block text-[clamp(1.6rem,1.2rem+1.6vw,2.4rem)] text-fg">{path.title}</span>
           <span className="mt-2 block text-sm font-medium text-fg sm:hidden">{path.from}</span>
         </span>
         <span className="hidden text-right sm:block">
-          <span className="heading block text-2xl tabular-nums text-fg">{path.from}</span>
-          <span className="eyebrow mt-1 block text-fg-muted">{open ? "Chiudi" : "Vedi cosa include"}</span>
+          <span className="heading block text-xl tabular-nums text-fg">{path.from}</span>
+          <span className="mt-1 block text-xs text-fg-subtle">{open ? "Chiudi" : "Vedi cosa include"}</span>
         </span>
+        {/* Niente scala sulla card intera (è grande): la pressione la mostra il cerchio. */}
         <span
           aria-hidden="true"
-          className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full border text-xl font-light transition-[background-color,border-color,color,scale] duration-150 ease-out group-active:scale-90 ${
-            open ? "border-fg bg-fg text-bg" : "border-line-strong/30 text-accent group-hover:border-fg"
+          className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-xl font-light transition-[background-color,color,rotate,scale] duration-200 ease-out group-active:scale-90 ${
+            open ? "rotate-45 bg-primary text-primary-fg" : "bg-accent-soft text-fg group-hover:bg-fg-subtle"
           }`}
         >
-          {open ? "–" : "+"}
+          +
         </span>
       </button>
 
@@ -155,7 +156,7 @@ function PathCard({ path, number, open, onToggle }) {
         <div className="overflow-hidden">
           {/* Il contenuto sfuma e scende di poco mentre la tendina si apre. */}
           <div
-            className={`mb-10 border border-line bg-surface p-5 transition-[opacity,translate] ease-out sm:p-8 motion-reduce:translate-y-0 ${
+            className={`border-t border-line px-6 pb-8 pt-6 transition-[opacity,translate] ease-out sm:px-8 motion-reduce:translate-y-0 ${
               open ? "translate-y-0 opacity-100 delay-75 duration-300" : "-translate-y-1 opacity-0 duration-150"
             }`}
           >
@@ -172,7 +173,7 @@ export default function PathCards() {
   const [openId, setOpenId] = useState(null);
 
   return (
-    <ol className="border-t border-line">
+    <ol className="space-y-3">
       {PATHS.map((path, index) => (
         <PathCard
           key={path.id}

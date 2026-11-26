@@ -25,7 +25,9 @@ Temi disponibili:
 
 | File | Stile |
 | --- | --- |
-| `themes/grigio.js` | **Tema del sito.** Come editoriale ma in scala di grigi: tortora `#a8a19b` per bottoni e fascia centrale, grigio-azzurro `#99a3ad` come accento, fasce antracite `#3b3b3b`, fondo `#f7f7f7` |
+| `themes/avorio.js` | **Tema del sito.** Chiaro e caldo, palette `#f4f5ef` (avorio) `#aba398` (tortora) `#07080d` (quasi nero), tortora scurito per i testi piccoli; Inter Tight + corsivo Instrument Serif, bottoni a pillola neri, card arrotondate con ombre morbide |
+| `themes/ardesia.js` | Scuro blu-ardesia, palette `#06141B` `#11212D` `#253745` `#4A5C6A` `#9BA8AB` `#CCD0CF`; Inter Tight + corsivo Instrument Serif per le parole in evidenza, bottoni a pillola, card arrotondate con ombre profonde |
+| `themes/grigio.js` | Come editoriale ma in scala di grigi: tortora `#a8a19b` per bottoni e fascia centrale, grigio-azzurro `#99a3ad` come accento, fasce antracite `#3b3b3b`, fondo `#f7f7f7` |
 | `themes/editoriale.js` | Stile rivista: blu notte `#14213d` e oro `#fca311`, Instrument Serif + Inter, titoli grandi con una parola in corsivo oro, angoli vivi, bottoni in maiuscolo con freccia ↗ |
 | `themes/au-studio.js` | Blu navy `#0f3a66` e oro `#b8902a` come il listino PDF, Lora + Poppins, filetti sottili, angoli appena arrotondati |
 | `themes/minimal-lusso.js` | Bianco/nero, Cormorant Garamond + Jost, niente angoli né ombre, tanto spazio vuoto |
@@ -59,7 +61,9 @@ Ogni file in `themes/` esporta un oggetto con queste sezioni (vedi
 `themes/minimal-lusso.js` come modello commentato):
 
 - `fonts`: font dei titoli (`heading`) e del testo (`body`), caricati con
-  `next/font/google` nel file del tema stesso. Sono ospitati dal sito, senza
+  `next/font/google` nel file del tema stesso. Per i font variabili (es.
+  Inter Tight) non indicare `weight`: con Turbopack un elenco di pesi rompe
+  la build ("next/font/google queries have exactly one entry"). Sono ospitati dal sito, senza
   richieste a Google (ok GDPR), e si scaricano solo quelli del tema attivo.
 - `colors.light`: i colori del sito (sfondo, testo, bordi, bottone
   principale, accento, fasce scure, saldi, successo...). I temi contengono
@@ -69,6 +73,10 @@ Ogni file in `themes/` esporta un oggetto con queste sezioni (vedi
 - `radius`: arrotondamenti di bottoni, campi, filtri, badge, card, immagini, pannelli.
 - `spacing`: larghezza massima, margini laterali, aria tra le sezioni, distanza tra le card.
 - `shadows`: ombre delle card e degli elementi in rilievo.
+- `scheme` (facoltativo): `"dark"` per i temi con fondo scuro (barre di
+  scorrimento e controlli del browser scuri). Di base `"light"`.
+- `fonts.accent` (facoltativo): font delle parole in corsivo nei titoli
+  (`<em>`). Se manca, resta il font dei titoli.
 - `buttons`: misure, carattere ed effetto al passaggio dei bottoni.
   `arrow` (facoltativo) è il simbolo dopo il testo di ogni bottone, es. `"↗"`.
 - `card`: aspetto della card prodotto (proporzione della foto, bordo,
@@ -92,7 +100,8 @@ tema ne manca una, in sviluppo compare un errore che dice quale.
    (pieno, sopra la fascia `bg-primary`), più `btn-sm` e `btn-plain` (senza
    freccia), `link-more`, `hero-backdrop`, `rise` / `wipe` (entrata
    dell'apertura, ritardo con `[--d:80ms]`), `accordion` (tendine
-   `<details>` fluide), `product-card*`, `page-container`.
+   `<details>` fluide), `glow` (luce morbida sul fondo), `product-card*`,
+   `page-container`.
 3. Le scelte di struttura (es. `card.addButton`, `layout.gridColumns`,
    `layout.navStyle`) i componenti le leggono direttamente con
    `const { card, layout } = useTheme()` (vedi "Selettore di anteprima").
@@ -125,10 +134,12 @@ modalità scura. Non c'è più il pulsante in header né lo script in
   `../LISTINO-PREZZI-AU-STUDIO-NUOVO.pdf`. Se cambia il listino si aggiorna
   solo questo file.
 - `public/lavori/`: foto dei lavori realizzati (Lumière Candles).
-- `lib/portfolio.js` + `public/portfolio/*.jpg`: i siti fatti per attività
-  vere (Rumino, Carpe Diem, L'Amicizia, La Finestra sul Lago)
-  della sezione "Come potrebbe essere il tuo", mostrati da
-  `components/MockupShowcase.jsx`. Le immagini sono screenshot dei siti in
+- `lib/portfolio.js` + `public/portfolio/*.jpg`: `LIVE_WORKS` sono i siti
+  fatti e già online (SB · Sebastian Balaniuc, sbcontents.com), nella
+  "Prova 1"; `MOCKUPS` sono le Proposte per attività vere (Rumino, Carpe
+  Diem, L'Amicizia, La Finestra sul Lago), nella "Prova 2". Entrambi
+  mostrati da `components/MockupShowcase.jsx` (prop `items`). Testi e punti
+  dei lavori: solo cose che ci sono davvero sul sito, niente inventato. Le immagini sono screenshot dei siti in
   `~/Desktop/LAVORI` (1440×900 da computer, 390×844 da telefono).
   `status: "Proposta"` = anteprima non ancora comprata; quando diventa
   cliente si mette `"Cliente"` e l'`url` del sito online (compare il link).
@@ -188,20 +199,26 @@ Tailwind: `ease-out` = `cubic-bezier(0.23, 1, 0.32, 1)`, `ease-in-out` =
 
 ## Interazioni della landing
 
-- Struttura visiva: apertura scura (`bg-inverse`) a tutto schermo con
-  cornice sottile, poi sezioni numerate "01 · …" fino a "07 · Contatti"
-  (`SectionHead` in `pages/index.jsx`). Le parole in corsivo nei titoli sono
-  `<em className="text-accent">` (`text-inverse-accent` sulle fasce scure).
-- `components/Header.jsx`: fisso, trasparente sopra l'apertura e pieno
-  (`bg-inverse`) appena si scorre, con la barra di lettura. A destra
-  "Scrivimi" e il menu a tre linee (le linee diventano una X); la tendina si
-  chiude con Esc, toccando fuori o scegliendo una sezione. `NAV_LINKS` ha il
-  numero della sezione (`n`).
-- `components/PathCards.jsx`: le 3 strade, una per riga come un indice;
+- Layout "a strati" (`pages/index.jsx`): apertura con il titolo a sinistra
+  e a destra la pila di pillole dell'USP (`PillStack`, dalla più scura alla
+  più chiara, l'ultima è il contatto WhatsApp). Le sezioni usano due schemi:
+  `Split` (titolo fermo a sinistra mentre le card scorrono a destra) e
+  `CenterHead` (titolo centrato e griglia di card sotto). Le card hanno la
+  classe `CARD` (`rounded-panel border bg-surface shadow-card`); l'etichetta
+  di sezione è la pillola `Chip` ("01 · Ti riconosci?"). Le parole in
+  corsivo nei titoli sono `<em className="text-accent">`.
+- `components/Header.jsx`: capsula sospesa in alto (fissa), con logo,
+  "Scrivimi" e menu a tre linee; si fa più compatta appena si scorre e ha
+  la barra di lettura sul bordo inferiore. La tendina si chiude con Esc,
+  toccando fuori o scegliendo una sezione. `NAV_LINKS` ha il numero della
+  sezione (`n`).
+- `components/PathCards.jsx`: le 3 strade, una card per strada;
   toccandola si apre la tendina con i dettagli (spunte verdi = colori
   `success` / `successSoft` del tema).
-- `components/MockupShowcase.jsx`: con il mouse sopra una card il telefono
-  si solleva appena.
+- `components/MockupShowcase.jsx`: una card per sito; con il mouse sopra il
+  telefono si solleva appena. `children` aggiunge card in fondo alla griglia.
+- `components/Footer.jsx`: una card con sezioni e contatti e il nome dello
+  studio gigante, appena visibile.
 - `components/WhatsAppFloat.jsx`: tondo da telefono; da computer compare con
   la scritta solo dopo l'apertura.
 - `components/Reveal.jsx` + `lib/use-in-view.js`: le sezioni compaiono
