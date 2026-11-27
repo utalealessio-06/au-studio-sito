@@ -1,5 +1,8 @@
+import Image from "next/image";
 import { NAV_LINKS } from "./Header";
+import { SHOW_CHI_SONO } from "../lib/sections";
 import { CITY, EMAIL, INSTAGRAM_URL, OWNER_NAME, STORE_NAME, whatsappUrl } from "../lib/store";
+import ownerFace from "../public/alessio-utale-viso.jpg";
 
 const linkClass = "block py-1 text-fg-muted transition-colors duration-150 hover:text-fg";
 
@@ -17,6 +20,26 @@ export default function Footer() {
             <p className="mt-3 max-w-xs text-fg-muted">
               Siti vetrina e negozi online per i negozi di {CITY}. Una persona sola, prezzi scritti.
             </p>
+            {/* Firma: la faccia di chi risponde, anche in fondo alla pagina. */}
+            <a
+              href={SHOW_CHI_SONO ? "#chi-sono" : whatsappUrl()}
+              {...(SHOW_CHI_SONO ? {} : { target: "_blank", rel: "noopener noreferrer" })}
+              className="group mt-8 flex max-w-xs items-center gap-4 rounded-card border border-line p-3 transition-colors duration-150 hover:border-line-strong"
+            >
+              <Image
+                src={ownerFace}
+                alt={OWNER_NAME}
+                sizes="56px"
+                className="size-14 shrink-0 rounded-media object-cover"
+              />
+              <span className="min-w-0">
+                <span className="block font-medium text-fg">{OWNER_NAME}</span>
+                <span className="block text-fg-muted">20 anni · {CITY}</span>
+                <span className="mt-1 block text-xs text-fg-subtle transition-colors duration-150 group-hover:text-fg">
+                  {SHOW_CHI_SONO ? "Chi sono →" : "Scrivimi →"}
+                </span>
+              </span>
+            </a>
           </div>
           <div>
             <p className="eyebrow mb-3 text-fg-subtle">Sezioni</p>

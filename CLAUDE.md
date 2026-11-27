@@ -236,7 +236,9 @@ Tailwind: `ease-out` = `cubic-bezier(0.23, 1, 0.32, 1)`, `ease-in-out` =
 - `components/MockupShowcase.jsx`: una card per sito; con il mouse sopra il
   telefono si solleva appena. `children` aggiunge card in fondo alla griglia.
 - `components/Footer.jsx`: una card con sezioni e contatti e il nome dello
-  studio gigante, appena visibile.
+  studio gigante, appena visibile. Sotto la descrizione c'è la firma (foto
+  `alessio-utale-viso.jpg`, nome, "20 anni · Roma") che porta a `#chi-sono`
+  (o a WhatsApp se la sezione è nascosta).
 - `components/WhatsAppFloat.jsx`: tondo da telefono; da computer compare con
   la scritta solo dopo l'apertura.
 - `components/Reveal.jsx` + `lib/use-in-view.js` (opzione `replay`): le
