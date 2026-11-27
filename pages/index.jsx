@@ -22,6 +22,7 @@ import {
   WHATSAPP_NUMBER,
 } from "../lib/store";
 import ownerPhoto from "../public/alessio-utale.jpg";
+import ownerFace from "../public/alessio-utale-viso.jpg";
 import { whatsappUrl } from "../lib/store";
 import { useInView } from "../lib/use-in-view";
 
@@ -361,11 +362,11 @@ function PillStack() {
           className="group flex items-center gap-4 rounded-btn bg-primary py-5 pl-5 pr-8 text-primary-fg shadow-pop transition-[background-color,transform] duration-160 ease-out hover:bg-primary-hover active:scale-[0.98] sm:pl-6"
         >
           <Image
-            src={ownerPhoto}
+            src={ownerFace}
             alt=""
             sizes="56px"
             preload
-            className="h-12 w-12 shrink-0 rounded-full object-cover object-[50%_20%] sm:h-14 sm:w-14"
+            className="h-12 w-12 shrink-0 rounded-full object-cover sm:h-14 sm:w-14"
           />
           <span className="min-w-0 flex-1">
             <span className="heading block text-xl sm:text-2xl">{OWNER_NAME}</span>
@@ -874,10 +875,10 @@ export default function HomePage() {
           <div className="flex flex-col gap-3">
             <div className="mb-3 flex items-center gap-4">
               <Image
-                src={ownerPhoto}
+                src={ownerFace}
                 alt={`${OWNER_NAME}, ${STORE_NAME}`}
                 sizes="64px"
-                className="h-16 w-16 rounded-full object-cover object-[50%_20%] ring-1 ring-line-strong ring-offset-2 ring-offset-bg"
+                className="h-16 w-16 rounded-full object-cover ring-1 ring-line-strong ring-offset-2 ring-offset-bg"
               />
               <div>
                 <p className="heading text-2xl text-fg">{OWNER_NAME}</p>
